@@ -22,8 +22,8 @@ if($connection)
             $userInfo["status"] = true;
             $response[] = $userInfo;
             
-            $_SESSION["firstname"] = $userInfo["firstname"];
-            $_SESSION["lastname"] = $userInfo["lastname"];
+            $_SESSION["firstname"] = $rows["firstname"];
+            $_SESSION["lastname"] = $rows["lastname"];
             
             
             
