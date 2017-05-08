@@ -8,7 +8,7 @@ if(isset($_SESSION["firstname"])){
 }
 else
 {
-    $result["fistname"] = "null";
+    $result["firstname"] = "null";
   
 }
 echo json_encode($result);
