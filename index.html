@@ -14,18 +14,23 @@
     </script>
 </head>
 <script language="JavaScript" type="text/javascript">
-  var userInfo = function () {
+  var userInfo = function () 
+  {
     console.log("Call userInfo");
     var httpUserInfo = new XMLHttpRequest();
     httpUserInfo.open("GET", "db/getUserInfo.php", true);
-    httpUserInfo.onreadystatechange = function (e) {
+    httpUserInfo.onreadystatechange = function (e) 
+    {
       if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
-        console.log("OK");
         var data = httpUserInfo.response;
-        var name = JSON.parse(data);
-        window.document.getElementById("nameUserLogin").innerText(name.username);
+        var info = JSON.parse(data);
+        if (info.username != "null")
+        {
+          window.document.getElementById("nameUserLogin").innerText = info.username;
+        }
       }
     }
+    httpUserInfo.send();
   };
 
   window.onload = function () {
@@ -38,8 +43,10 @@
   <header class="header-color">
     <div class="container">
       <ul class="nav navbar-nav navbar-right">
-        <li id="nameUserLogin">
-          <p  style="padding-top:14px; padding-right:7px; font-weight: bold"></p>
+        <li >          
+          <p  style="padding-top:14px; padding-right:7px; font-weight: bold">
+            <div id="nameUserLogin"></div>
+          </p>
         </li>
         <li><a href="login.html">ออกจากระบบ</a></li>
       </ul>
@@ -90,7 +97,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
           <div class="item active">
-            <img src="image/Promotion.jpg" style="width: 100%;">
+            <img src="image/promotion.jpg" style="width: 100%;">
             <div class="carousel-caption">
               ...
             </div>

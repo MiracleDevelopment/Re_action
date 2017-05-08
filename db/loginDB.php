@@ -9,7 +9,7 @@ if($connection)
     $email = $_POST["email"];
     $password = $_POST["password"];
     
-    $stateLogin  = "SELECT member_id,email,password From Member_TB  WHERE email = '$email' AND '$password'";
+    $stateLogin  = "SELECT member_id,email,password From Member_TB  WHERE email = '$email' AND password='$password'";
     $result = mysqli_query($connection,$stateLogin);
     if(mysqli_num_rows($result) > 0)
     {
@@ -23,9 +23,6 @@ if($connection)
             $response[] = $userInfo;
             
             $_SESSION["username"] = $userInfo["email"];
-            
-            
-            
         }
     }
     else
