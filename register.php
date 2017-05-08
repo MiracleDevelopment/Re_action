@@ -16,7 +16,7 @@
     <div class="container">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="register.php">สมัครสมาชิก</a></li>
-        <li><a href="login.php">เข้าสู่ระบบ</a></li>
+        <li><a href="login.html">เข้าสู่ระบบ</a></li>
       </ul>
     </div>
     <div class="header-color2">
@@ -86,7 +86,7 @@
             <input type="text" class="form-control" placeholder="รหัสไปรณีย์">
           </div>
           <div style="float: right;">
-            <a class="btn btn-default btn-lg" href="login.php" role="button">ยืนยัน</a>
+            <a class="btn btn-default btn-lg" href="login.html" role="button">ยืนยัน</a>
           </div>
         </form>
       </div>

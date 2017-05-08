@@ -18,7 +18,7 @@
         <li>
           <p style="padding-top:14px; padding-right:7px; font-weight: bold">Dhanaithorn</p>
         </li>
-        <li><a href="login.php">ออกจากระบบ</a></li>
+        <li><a href="login.html">ออกจากระบบ</a></li>
       </ul>
     </div>
     <div class="header-color2">
