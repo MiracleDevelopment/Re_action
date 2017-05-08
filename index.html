@@ -24,9 +24,9 @@
       if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
         var data = httpUserInfo.response;
         var info = JSON.parse(data);
-        if (info.username != "null")
+        if (info.firstname != "null")
         {
-          window.document.getElementById("nameUserLogin").innerText = info.username;
+          window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
         }
       }
     }

@@ -24,6 +24,7 @@
       if (http.readyState === XMLHttpRequest.DONE && http.status === 200) 
       {
         var data = http.response;
+        console.log(data);
         var info = JSON.parse(data)[0];
 
         if(info.status==true)
