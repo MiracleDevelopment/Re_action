@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>index</title>
+
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/mystyle/mystyle14.css">
+  <script src="//code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous">
+
+    </script>
+</head>
+<script language="JavaScript" type="text/javascript">
+  var userInfo = function () {
+    console.log("Call userInfo");
+    var httpUserInfo = new XMLHttpRequest();
+    httpUserInfo.open("GET", "db/getUserInfo.php", true);
+    httpUserInfo.onreadystatechange = function (e) {
+      if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+        console.log("OK");
+        var data = httpUserInfo.response;
+        var name = JSON.parse(data);
+        window.document.getElementById("nameUserLogin").innerText(name.username);
+      }
+    }
+  };
+
+  window.onload = function () {
+    userInfo();
+    console.log("Work.... JS");
+  };
+
+</script>
+<body>
+  <header class="header-color">
+    <div class="container">
+      <ul class="nav navbar-nav navbar-right">
+        <li id="nameUserLogin">
+          <p  style="padding-top:14px; padding-right:7px; font-weight: bold"></p>
+        </li>
+        <li><a href="login.html">ออกจากระบบ</a></li>
+      </ul>
+    </div>
+    <div class="header-color2">
+      <div class="container">
+        <a href="index.html"><img class="logo" src="image/logo.png"></a>
+        <a href="shop.php">
+          <div class="shopping">
+            <p style="font-size:40px; color: black; float: left; margin-bottom:0px;">฿ 0</p>
+            <p style="font-size:15px; color: black; font-weight : bold;">สินค้าในตะกร้า</p>
+            <p style="float: left; font-size:15px; color: black; font-weight : bold;">1 ชนิด</p>
+            <p style="float: right; font-size:15px; color: black; font-weight : bold;">2 ชิ้น</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
+  <main style="background: #333; margin-top: 130px;">
+    <div class="container">
+      <nav style="margin-bottom: 20px;">
+        <ul class="nav nav-justified">
+          <li>
+            <a href="Promotion.php" class="manu">โปรโมชั่น</a>
+          </li>
+          <li>
+            <a href="Pasta.php" class="manu">พาสต้า</a>
+          </li>
+          <li>
+            <a href="Burger.php" class="manu">เบอร์เกอร์</a>
+          </li>
+          <li>
+            <a href="appetizers.php" class="manu">อาหารทานเล่น</a>
+          </li>
+          <li>
+            <a href="Drinks.php" class="manu">เครื่องดื่ม</a>
+          </li>
+        </ul>
+      </nav>
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="margin-bottom: 20px;">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <img src="image/Promotion.jpg" style="width: 100%;">
+            <div class="carousel-caption">
+              ...
+            </div>
+          </div>
+          <div class="item">
+            <img src="image/promotion2.jpg" style="width: 100%;">
+            <div class="carousel-caption">
+              ...
+            </div>
+          </div>
+          <div class="item">
+            <img src="image/1.jpg" style="width: 100%;">
+            <div class="carousel-caption">
+              ...
+            </div>
+          </div>
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+      <h2 style="margin: 20px; text-align: center;">เมนูยอดนิยม</h2>
+      <div class="col-lg-4">
+        <div class="position-fix"></div>
+        <img src="image/pasta7.png" class="position4">
+        <img src="image/num1.png" class="position3">
+      </div>
+      <div class="col-lg-4">
+        <div class="position-fix"></div>
+        <img src="image/pasta7.png" class="position4">
+        <img src="image/num2.png" class="position3">
+      </div>
+      <div class="col-lg-4">
+        <div class="position-fix"></div>
+        <img src="image/pasta7.png" class="position4">
+        <img src="image/num3.png" class="position3">
+      </div>
+
+    </div>
+  </main>
+  <footer>
+    <div class="container" style="padding-bottom: 40px;">
+      <hr>
+      <div class="col-lg-3">
+        <h4>เกี่ยวกับเรา</h4>
+        <p class="font-size-footer">
+          Eat Restaurant
+          <br>มีเมนู ดังนี้
+        </p>
+        <a href="Pasta.php" class="font-size-footer">พาสต้า</a>
+        <br>
+        <a href="Burger.php" class="font-size-footer">เบอร์เกอร์</a>
+        <br>
+        <a href="appetizers.php" class="font-size-footer">อาหารทานเล่น</a>
+        <br>
+        <a href="Drinks.php" class="font-size-footer">เครื่องดื่ม</a>
+        <br>
+      </div>
+      <div class="col-lg-3" style="padding-right: 130px;">
+        <h4>สถานที่ตั้ง</h4>
+        <a href="https://www.google.co.th/maps/place/King+Mongkut's+University+of+Technology+Thonburi+(Bangkhuntian)/@13.5772745,100.4414213,15z/data=!4m5!3m4!1s0x0:0x25141f65cef4c68b!8m2!3d13.5772745!4d100.4414213"
+          target="_blank" class="font-size-footer">เทียนทะและ 25, แขวง ท่าข้าม เขต บางขุนเทียน กรุงเทพมหานคร 10150</a>
+      </div>
+      <div class="col-lg-3">
+        <h4>เวลาทำการ</h4>
+        <p class="font-size-footer">เปิดทุกวัน</p>
+        <p class="font-size-footer">เวลา 10:00 - 22:00 น.</p>
+      </div>
+      <div class="col-lg-3">
+        <h4>ติดต่อเรา</h4>
+        <p class="font-size-footer">เดลิเวอรี่ 4949</p>
+      </div>
+    </div>
+    <div style="background-color: #a92111">
+      <center>
+        <a href="index.html"><img src="image/eat.png" style="margin: 15px;"></a>
+      </center>
+    </div>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.header-color{
+	height: 42px;
+	width: 100%;
+	background: linear-gradient(black, #252525);
+}
+
+.header-color2{
+	height: 130px;
+	width: 100%;
+	background: linear-gradient(white, white);
+}
+
+ .navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 12px;
+  }
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: #a92111;
+  color: white;
+}
+
+.logo{
+	height: 120px;
+	width: 103px;
+}
