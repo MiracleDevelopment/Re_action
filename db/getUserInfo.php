@@ -1,12 +1,14 @@
 <?php
 session_start();
 $result =[];
-if(isset($_SESSION["userLogin"])){
-    $result["username"] = $_SESSION["username"];
+if(isset($_SESSION["firstname"])){
+    $result["firstname"] = $_SESSION["firstname"];
+    $result["lastname"] = $_SESSION["lastname"];
 }
 else
 {
-    $result["username"] = "null";
+    $result["fistname"] = "null";
+  
 }
 echo json_encode($result);
 ?>
