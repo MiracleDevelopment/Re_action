@@ -25,6 +25,7 @@ CREATE TABLE Member_TB (
 CREATE TABLE Item_TB (
 	item_id INT AUTO_INCREMENT,
     item_name VARCHAR(30),
+    item_description TEXT,
     price INT,
     image_url VARCHAR(100),
     PRIMARY KEY(item_id)
