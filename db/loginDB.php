@@ -5,6 +5,7 @@ if($connection)
 {
     $response=[];
     $userInfo=[];
+    
     $email = $_POST["email"];
     $password = $_POST["password"];
     
@@ -21,7 +22,7 @@ if($connection)
             $userInfo["status"] = true;
             $response[] = $userInfo;
             
-            $_SESSION["username"] = $userInfo["userLogin"];
+            $_SESSION["username"] = $userInfo["email"];
             
             
             
@@ -29,7 +30,8 @@ if($connection)
     }
     else
     {
-        $response[0]["status"]=false;
+        $userInfo["status"] = false;
+        $response[] = $userInfo;
     }
     echo json_encode($response);
     mysqli_close($connection);
