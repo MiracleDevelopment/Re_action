@@ -1,25 +1,21 @@
 <?php
-require("connection");
+require("connector.php");
 if($connection){
-    $photoInfo=[];
     $response=[];
-    
-    $id = $_POST[""];
-    $namefood = $_POST[""];
-    $descriptionfodd = $_POST[""];
-    $pricefood=$_POST[""];
-    $url = $_POSt[""];
+    $namefood = $_POST["name"];
+    $descriptionfood = $_POST["detail"];
+    $pricefood=$_POST["price"];
+    $url = $_POST["imgurl"];
 
-    $sqlquery = "INSERT INTO Item_TB(item_id,item_name,item_description,price,image_url)
-    VALUES ('$id','$namefood','$descriptionfodd','$pricefood','$url')";
+    $sqlquery = "INSERT INTO Item_TB(item_name,item_description,price,image_url)
+    VALUES ('$namefood','$descriptionfood','$pricefood','$url')";
     $result = mysqli_query($connection,$sqlquery);
     if($result){
-        echo"Sucessfully";
+        $response["status"] = "OK";
     }else{
-        echo "not Sucessfully";
+       $response["status"] = "not OK";
     }
+    echo json_encode($response);
 }
-
-
 
 ?>

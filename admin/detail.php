@@ -52,7 +52,7 @@
               <a href="burgeradmin.php" class="manu">เบอร์เกอร์</a>
             </li>
             <li>
-              <a href="appetizersadmin.php" class="manu">อาหารทานเล่น</a>
+              <a href="appetizersadmin.html" class="manu">อาหารทานเล่น</a>
             </li>
             <li>
               <a href="drinksadmin.php" class="manu">เครื่องดื่ม</a>
