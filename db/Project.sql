@@ -27,6 +27,7 @@ CREATE TABLE Item_TB (
     item_name VARCHAR(30),
     item_description TEXT,
     price INT,
+    type VARCHAR(15),
     image_url VARCHAR(100),
     PRIMARY KEY(item_id)
 );
@@ -41,6 +42,8 @@ CREATE TABLE History_TB(
     count INT,
     date_sold DATE
 );
+
+
 
 
 -- -------------------------------
@@ -75,12 +78,12 @@ INSERT Member_TB (member_id,firstname,lastname,username,password,address,email,b
 (6,"FourMod","ModMod","FourMod01","pass6","61/88","FourMode@gmail.com","1996-03-31"),
 (7,"admin","admin","admin","admin","61/88","admin@gmail.com","1996-03-29");
 
-INSERT Item_TB (item_id,item_name, price, image_url) VALUES
-(1,"Garlic Bread", 100, "image/xxx.png"),
-(2,"Chicken Wings ",200,"image/chicken.jpg"),
-(3,"Mushroom Spaghetti",150,"image/spicy.png"),
-(4,"Bacon Topping",180,"image/Salad.png"),
-(5,"Potato",300,"image/Potato.jpg");
+INSERT Item_TB (item_id,item_name, price, type,image_url) VALUES
+(1,"Garlic Bread", 100,"pasta", "image/xxx.png"),
+(2,"Chicken Wings ",200,"pasta","image/chicken.jpg"),
+(3,"Mushroom Spaghetti",150,"pasta","image/spicy.png"),
+(4,"Bacon Topping",180,"pasta","image/Salad.png"),
+(5,"Potato",300,"pasta","image/Potato.jpg");
 
 INSERT History_TB(m_id,i_id,count,date_sold) VALUES
 (1,2,2,"2013-04-1"),
