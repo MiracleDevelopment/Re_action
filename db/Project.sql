@@ -69,14 +69,14 @@ ON DELETE CASCADE;
 -- INSERT
 -- -------------------------------
 
-INSERT Member_TB (member_id,firstname,lastname,username,password,address,email,birthday) VALUES
-(1,"chanon", "temchai", "realtime", "pass1", "61/83", "nonkung8899@hotmail.com", "1996-03-26"),
-(2,"ChatChai","Saiya","ChatChai01","pass2","61/84","nungyoung@gmail.com","1996-03-27"),
-(3,"Warawut","Haiya","Warawut01","pass3","61/85","jung@gmail.com","1996-03-28"),
-(4,"Turk","SaveState","Turk01","pass4","61/86","standart@gmail.com","1996-03-29"), 
-(5,"Thanawat","Warachai","Thanawat01","pass5","61/87","Thanawat@gmail.com","1996-03-30"),
-(6,"FourMod","ModMod","FourMod01","pass6","61/88","FourMode@gmail.com","1996-03-31"),
-(7,"admin","admin","admin","admin","61/88","admin@gmail.com","1996-03-29");
+INSERT Member_TB (member_id,firstname,lastname,username,password,address,email) VALUES
+(1,"chanon", "temchai", "realtime", "pass1", "61/83", "nonkung8899@hotmail.com"),
+(2,"ChatChai","Saiya","ChatChai01","pass2","61/84","nungyoung@gmail.com"),
+(3,"Warawut","Haiya","Warawut01","pass3","61/85","jung@gmail.com"),
+(4,"Turk","SaveState","Turk01","pass4","61/86","standart@gmail.com"), 
+(5,"Thanawat","Warachai","Thanawat01","pass5","61/87","Thanawat@gmail.com"),
+(6,"FourMod","ModMod","FourMod01","pass6","61/88","FourMode@gmail.com"),
+(7,"admin","admin","admin","admin","61/88","admin@gmail.com");
 
 INSERT Item_TB (item_id,item_name, price, type,image_url) VALUES
 (1,"Garlic Bread", 100,"pasta", "image/xxx.png"),

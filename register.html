@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
 </head>
 <script>
-  upload = function () {
+  register = function () {
     var username = window.document.getElementById("username").value;
     var password = window.document.getElementById("password").value;
     var firstname = window.document.getElementById("firstname").value;
@@ -31,12 +31,14 @@
     https.onreadystatechange = function (event) {
       if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
         var data = https.response;
-        window.location.reload();
+     //   var info  = JSON.parse(data)[1];
+        console.log(data);
+       // window.location.href = "login.html";
       }
     }
     var payload = "username=" + username + "&password=" + password + "&firstname=" + firstname + "&lastname=" + lastname +
-                  "email=" + email + "&telephone=" + telephone + "&number-home=" + numberhome + "&road=" + road +
-                  "tb=" + tb + "&area=" + area + "&location=" + location + "&code=" + code;
+                  "&email=" + email + "&telephone=" + telephone + "&number-home=" + numberhome + "&road=" + road+
+                  "&tb=" + tb + "&area=" + area + "&location=" + location + "&code=" + code;
     https.send(payload);
   }
 
@@ -77,47 +79,47 @@
                 </ul>
             </nav>
             <div class="col-lg-6 login">
-                <form>
+                
                     <h2 style="margin-bottom: 20px; color: black;">สร้างบัญชีของคุณ</h2>
-                    <div class="form-group" id = "username">
+                    <div class="form-group" >
                         <label>ชื่อบัญชี</label>
-                        <input type="email" class="form-control" placeholder="ชื่อบัญชี">
+                        <input type="email" class="form-control"  id = "username" placeholder="ชื่อบัญชี">
                     </div>
-                    <div class="form-group" id = "password">
+                    <div class="form-group" >
                         <label>รหัสผ่าน</label>
-                        <input type="password" class="form-control" placeholder="รหัสผ่าน">
+                        <input type="password" class="form-control" id = "password" placeholder="รหัสผ่าน">
                     </div>
-                    <div class="form-group col-lg-6" style="padding: 0px;" id = "firstname">
+                    <div class="form-group col-lg-6" style="padding: 0px;" >
                         <label>ชื่อ</label>
-                        <input type="text" class="form-control" placeholder="ชื่อ">
+                        <input type="text" class="form-control" id = "firstname" placeholder="ชื่อ" >
                     </div>
-                    <div class="form-group col-lg-6" style="padding-right: 0px;" id = "lastname">
+                    <div class="form-group col-lg-6" style="padding-right: 0px;" >
                         <label>นามสกุล</label>
-                        <input type="text" class="form-control" placeholder="นามสกุล">
+                        <input type="text" class="form-control" id = "lastname" placeholder="นามสกุล">
                     </div>
-                    <div class="form-group" id = "email">
+                    <div class="form-group" >
                         <label>อีเมลล์</label>
-                        <input type="email" class="form-control" placeholder="อีเมลล์">
+                        <input type="email" class="form-control" id = "email" placeholder="อีเมลล์">
                     </div>
-                    <div class="form-group" id = "telephone">
+                    <div class="form-group" >
                         <label>หมายเลขโทรศัพท์</label>
-                        <input type="text" class="form-control" placeholder="0XX-XXX-XXXX">
+                        <input type="text" class="form-control" id = "telephone" placeholder="0XX-XXX-XXXX">
                     </div>
-                    <div class="form-group col-lg-3" style="padding: 0px;" id = "number-home">
+                    <div class="form-group col-lg-3" style="padding: 0px;" >
                         <label>เลขที่</label>
-                        <input type="text" class="form-control" placeholder="เลขที่">
+                        <input type="text" class="form-control" id = "number-home" placeholder="เลขที่">
                     </div>
-                    <div class="form-group col-lg-9" style="padding-right: 0px;" id = "road">
+                    <div class="form-group col-lg-9" style="padding-right: 0px;" >
                         <label>ถนน</label>
-                        <input type="text" class="form-control" placeholder="ถนน">
+                        <input type="text" class="form-control" id = "road" placeholder="ถนน">
                     </div>
-                    <div class="form-group col-lg-6" style="padding: 0px;" id = "tb">
+                    <div class="form-group col-lg-6" style="padding: 0px;" >
                         <label>แขวง/ตำบล</label>
-                        <input type="text" class="form-control" placeholder="แขวง/ตำบล">
+                        <input type="text" class="form-control" id = "tb" placeholder="แขวง/ตำบล">
                     </div>
-                    <div class="form-group col-lg-6" style="padding-right: 0px;" id = "area">
+                    <div class="form-group col-lg-6" style="padding-right: 0px;" >
                         <label>เขต/อำเภอ</label>
-                        <input type="text" class="form-control" placeholder="เขต/อำเภอ">
+                        <input type="text" class="form-control" id = "area" placeholder="เขต/อำเภอ">
                     </div>
                     <div class="form-group" style="padding: 0px;">
                         <label>จังหวัด</label>
@@ -128,9 +130,9 @@
                         <input type="text" class="form-control" placeholder="รหัสไปรณีย์" id = "code">
                     </div>
                     <div style="float: right;">
-                        <a class="btn btn-default btn-lg" href="login.html" role="button">ยืนยัน</a>
+                        <a class="btn btn-default btn-lg" onclick="register()" role="button">ยืนยัน</a>
                     </div>
-                </form>
+               
             </div>
             <div class="col-lg-6">
                 <h2 class="login-detail">บัญชีผู้ใช้ของคุณสามารถ</h2>
