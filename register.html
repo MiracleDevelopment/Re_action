@@ -13,16 +13,18 @@
 </head>
 <script>
   upload = function () {
-    var img = window.document.getElementById("username").value;
-    var name = window.document.getElementById("password").value;
-    var detail = window.document.getElementById("firstname").value;
-    var price = window.document.getElementById("lastname").value;
-    var price = window.document.getElementById("email").value;
-    var price = window.document.getElementById("telephone").value;
-    var price = window.document.getElementById("").value;
-    var price = window.document.getElementById("").value;
-    var price = window.document.getElementById("").value;
-    var price = window.document.getElementById("").value;
+    var username = window.document.getElementById("username").value;
+    var password = window.document.getElementById("password").value;
+    var firstname = window.document.getElementById("firstname").value;
+    var lastname = window.document.getElementById("lastname").value;
+    var email = window.document.getElementById("email").value;
+    var telephone = window.document.getElementById("telephone").value;
+    var numberhome = window.document.getElementById("number-home").value;
+    var road = window.document.getElementById("road").value;
+    var tb = window.document.getElementById("tb").value;
+    var area = window.document.getElementById("area").value;
+    var location = window.document.getElementById("location").value;    
+    var code = window.document.getElementById("code").value;    
     var https = new XMLHttpRequest();
     https.open("POST", "db/register.php");
     https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -32,7 +34,9 @@
         window.location.reload();
       }
     }
-    var payload = "imgurl=" + img + "&name=" + name + "&detail=" + detail + "&price=" + price;
+    var payload = "username=" + username + "&password=" + password + "&firstname=" + firstname + "&lastname=" + lastname +
+                  "email=" + email + "&telephone=" + telephone + "&number-home=" + numberhome + "&road=" + road +
+                  "tb=" + tb + "&area=" + area + "&location=" + location + "&code=" + code;
     https.send(payload);
   }
 
