@@ -18,10 +18,10 @@
     https.onreadystatechange = function (event) {
       if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
         var data = https.response;
-        console.log("ok3");
+        window.location.reload();
       }
     }
-    var payload = "img=" + img + "&name=" + name + "&detail=" + detail + "&price=" + price;
+    var payload = "imgurl=" + img + "&name=" + name + "&detail=" + detail + "&price=" + price;
     https.send(payload);
   }
 
