@@ -72,7 +72,8 @@ INSERT Member_TB (member_id,firstname,lastname,username,password,address,email,b
 (3,"Warawut","Haiya","Warawut01","pass3","61/85","jung@gmail.com","1996-03-28"),
 (4,"Turk","SaveState","Turk01","pass4","61/86","standart@gmail.com","1996-03-29"), 
 (5,"Thanawat","Warachai","Thanawat01","pass5","61/87","Thanawat@gmail.com","1996-03-30"),
-(6,"FourMod","ModMod","FourMod01","pass6","61/88","FourMode@gmail.com","1996-03-31");
+(6,"FourMod","ModMod","FourMod01","pass6","61/88","FourMode@gmail.com","1996-03-31"),
+(7,"admin","admin","admin","admin","61/88","admin@gmail.com","1996-03-29");
 
 INSERT Item_TB (item_id,item_name, price, image_url) VALUES
 (1,"Garlic Bread", 100, "image/xxx.png"),
