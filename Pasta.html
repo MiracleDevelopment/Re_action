@@ -11,70 +11,71 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 
-    <script>
-        
-    var getItem = function () {
-        var http = new XMLHttpRequest();
-        http.open("GET", "db/getUserInfo.php", true);
-        http.onreadystatechange = function (e) 
-        {
-            if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
-                var data = http.response;
-                var info = JSON.parse(data);
-                var element = "";
-
-                for(var i = 0; i < info.length; ++i)
-                {
-
-                    element += '<div class="col-lg-6">\
-                                    <div class="col-lg-12 food">\
-                                        <div class="col-lg-7">\
-                                            <img src="' + info[i].imageurl + '" style="width: 100%;">\
-                                        </div>\
-                                        <div class="col-lg-5">\
-                                            <h3 style="color: black;">' + info[i].name + '</h3>\
-                                            <p style="color: black;">' + info[i].description + '</p>\
-                                            <div class="clearfix" style="padding-top: 20px;">\
-                                                <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ ' + info[i].price + '</h3>\
-                                                <a class="btn btn-default btn-lg col-lg-6" href="#" role="button">สั้งซื้อ</a>\
-                                            </div>\
-                                        </div>\
-                                    </div>\
-                                 </div>';
-                }
-
-
-            }
-        }
-        http.send();
-    }
-
-    </script>
 </head>
 <script language="JavaScript" type="text/javascript">
-  var userInfo = function () 
-  {
+var userInfo = function () 
+{
     console.log("Call userInfo");
     var httpUserInfo = new XMLHttpRequest();
     httpUserInfo.open("GET", "db/getUserInfo.php", true);
     httpUserInfo.onreadystatechange = function (e) 
     {
-      if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
-        var data = httpUserInfo.response;
-        var info = JSON.parse(data);
-        if (info.firstname != "null")
-        {
-            window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
+        if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+            var data = httpUserInfo.response;
+            var info = JSON.parse(data);
+            if (info.firstname != "null")
+            {
+                window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
+            }
         }
-      }
     }
     httpUserInfo.send();
-  };
+};
 
-  window.onload = function () {
+var getItem = function () {
+    var http = new XMLHttpRequest();
+    http.open("POST", "db/getitem.php", true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.onreadystatechange = function (e) 
+    {
+        if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+            var data = http.response;
+            var info = JSON.parse(data);
+            var element = "";
+
+            for(var i = 0; i < info.length; ++i)
+            {
+
+                element += '<div class="col-lg-6">\
+                                <div class="col-lg-12 food">\
+                                    <div class="col-lg-7">\
+                                        <img src="' + info[i].imageurl + '" style="width: 100%;">\
+                                    </div>\
+                                    <div class="col-lg-5">\
+                                        <h3 style="color: black;">' + info[i].name + '</h3>\
+                                        <p style="color: black;">' + info[i].description + '</p>\
+                                        <div class="clearfix" style="padding-top: 20px;">\
+                                            <h3 class="col-lg-6" style="margin: 0px; color: black;">฿' + info[i].price + '</h3>\
+                                            <a class="btn btn-default btn-lg col-lg-6" href="#" role="button">สั้งซื้อ</a>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                             </div>';
+            }
+
+            window.document.getElementById("item-container").innerHTML = element;
+        }
+    }
+
+    var payload = "type=pasta";
+    http.send(payload);
+}
+
+window.onload = function () {
     userInfo();
-    console.log("Work.... JS");
-  };
+    getItem();
+};
+
 
 </script>
 <body>
@@ -123,21 +124,7 @@
                 </ul>
             </nav>
             <img src="image/pastacover.jpg" style="width: 100%; margin-bottom: 20px;">
-            <div class="col-lg-6">
-                <div class="col-lg-12 food">
-                    <div class="col-lg-7">
-                        <img src="image/pasta3.png" style="width: 100%;">
-                    </div>
-                    <div class="col-lg-5">
-                        <h3 style="color: black;">สปาเก็ตตี้ไวท์ครีมซอส</h3>
-                        <p style="color: black;">เนื้อที่ย่างบนเปลวไฟจนหอมกรุ่นถึง 2 ชั้น เติมความอร่อยด้วยเบคอนรมควัน กรุบกรอบด้วยผักสด</p>
-                        <div class="clearfix" style="padding-top: 20px;">
-                            <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 149</h3>
-                            <a class="btn btn-default btn-lg col-lg-6" href="#" role="button">สั้งซื้อ</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div id="item-container"></div>
 
         </div>
