@@ -29,7 +29,14 @@
 
         if(info.status==true)
         {
-            window.location.href = "index.html";
+            if(info.username === "Admin")
+            {
+                window.location.href = "admin/home.html";
+            }
+            else
+            {
+                window.location.href = "index.html";
+            }
         }
         else
         {
