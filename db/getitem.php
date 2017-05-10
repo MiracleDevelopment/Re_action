@@ -1,6 +1,7 @@
 <?php
 require("connector.php");
 if($connection){
+    $info=[];
     $response=[];
     $type = $_POST["type"];
     
@@ -8,12 +9,13 @@ if($connection){
     $result = mysqli_query($connection,$sqlquery);
     if(mysqli_num_rows($result)>0){
         while($rows = mysqli_fetch_assoc($result)){
-            $response["id"] = $rows["item_id"];
-            $response["name"] = $rows["item_name"];
-            $response["description"] = $rows["item_description"];
-            $response["price"] = $rows["price"];
-            $response["type"] = $rows["type"];
-            $response["imageurl"] = $rows["image_url"];
+            $info["id"] = $rows["item_id"];
+            $info["name"] = $rows["item_name"];
+            $info["description"] = $rows["item_description"];
+            $info["price"] = $rows["price"];
+            $info["type"] = $rows["type"];
+            $info["imageurl"] = $rows["image_url"];
+            $response[] = $info;
         }
     }
     echo json_encode($response);
