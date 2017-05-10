@@ -6,6 +6,29 @@
   <title>3</title>
 </head>
 
+<script>
+  var upload = function (){
+    var img = document.getElementById("input-img").value;
+    var name = window.document.getElementById("input-name").value;
+    var detail = window.document.getElementById("input-detail").value;    
+    var price = window.document.getElementById("input-price").value;
+    
+    var https = new XMLHttpRequest();
+    https.open("POST","../db/photodb.php");
+    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    https.onreadystatechange = function(event){
+        if(https.readyState === XMLHttpRequest.DONE && https.status === 200){
+          var data = https.response;
+          var info = JSON.parse(data);
+          console.log(info);
+          //window.location.href= "home.php";
+        }
+    }
+    var payload = "imgurl=" + img +"&name="+ name + "&detail="+ detail + "&price="+ price;
+    https.send(payload);
+  }
+</script>
+
 <body>
   <!DOCTYPE html>
   <html lang="en">
@@ -52,7 +75,7 @@
               <a href="burgeradmin.php" class="manu">เบอร์เกอร์</a>
             </li>
             <li>
-              <a href="appetizersadmin.php" class="manu">อาหารทานเล่น</a>
+              <a href="appetizersadmin.html" class="manu">อาหารทานเล่น</a>
             </li>
             <li>
               <a href="drinksadmin.php" class="manu">เครื่องดื่ม</a>
@@ -145,28 +168,26 @@
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content col-lg-12" style="padding: 10px;">
-                  <form>
                     <div class="col-lg-6">
                       <p><img src="" class="form-img"></p>
-                      <input type="file">
+                      <input type="file" id="input-img">
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label>ชื่อเมนูอาหาร</label>
-                        <input type="text" class="form-control" placeholder="ชื่อเมนูอาหาร">
+                        <input type="text" class="form-control" placeholder="ชื่อเมนูอาหาร" id="input-name">
                       </div>
                       <div class="form-group">
                         <label>รายละเอียดอาหาร</label>
-                        <textarea class="form-control" rows="12" style="margin-bottom: 10px;" placeholder="รายละเอียดอาหาร"></textarea>
+                        <textarea class="form-control" rows="12" style="margin-bottom: 10px;" placeholder="รายละเอียดอาหาร" id="input-detail"></textarea>
                       </div>
                       <div class="form-group col-lg-9">
-                        <input type="text" class="form-control" placeholder="ราคา">
+                        <input type="text" class="form-control" placeholder="ราคา" id="input-price">
                       </div>
                       <div class="col-lg-3">
-                        <button class="btn btn-primary btn-lg" href="#" role="button" style="float: right; font-size: 14px;">อัพโหลด</button>
+                        <button class="btn btn-primary btn-lg" role="button" style="float: right; font-size: 14px;" onclick="upload()">อัพโหลด</button>
                       </div>
                     </div>
-                  </form>
                 </div>
               </div>
             </div>
