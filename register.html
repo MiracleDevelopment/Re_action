@@ -11,7 +11,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 </head>
+<script>
+  upload = function () {
+    var img = window.document.getElementById("username").value;
+    var name = window.document.getElementById("password").value;
+    var detail = window.document.getElementById("firstname").value;
+    var price = window.document.getElementById("lastname").value;
+    var price = window.document.getElementById("email").value;
+    var price = window.document.getElementById("telephone").value;
+    var price = window.document.getElementById("").value;
+    var price = window.document.getElementById("").value;
+    var price = window.document.getElementById("").value;
+    var price = window.document.getElementById("").value;
+    var https = new XMLHttpRequest();
+    https.open("POST", "db/register.php");
+    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    https.onreadystatechange = function (event) {
+      if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
+        var data = https.response;
+        window.location.reload();
+      }
+    }
+    var payload = "imgurl=" + img + "&name=" + name + "&detail=" + detail + "&price=" + price;
+    https.send(payload);
+  }
 
+</script>
 <body>
     <header class="header-color">
         <div class="container">
@@ -50,41 +75,53 @@
             <div class="col-lg-6 login">
                 <form>
                     <h2 style="margin-bottom: 20px; color: black;">สร้างบัญชีของคุณ</h2>
-                    <div class="form-group">
-                        <label>อีเมลล์หรือชื่อบัญชี</label>
-                        <input type="email" class="form-control" placeholder="อีเมลล์หรือชื่อบัญชี">
+                    <div class="form-group" id = "username">
+                        <label>ชื่อบัญชี</label>
+                        <input type="email" class="form-control" placeholder="ชื่อบัญชี">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id = "password">
                         <label>รหัสผ่าน</label>
                         <input type="password" class="form-control" placeholder="รหัสผ่าน">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-lg-6" style="padding: 0px;" id = "firstname">
+                        <label>ชื่อ</label>
+                        <input type="text" class="form-control" placeholder="ชื่อ">
+                    </div>
+                    <div class="form-group col-lg-6" style="padding-right: 0px;" id = "lastname">
+                        <label>นามสกุล</label>
+                        <input type="text" class="form-control" placeholder="นามสกุล">
+                    </div>
+                    <div class="form-group" id = "email">
+                        <label>อีเมลล์</label>
+                        <input type="email" class="form-control" placeholder="อีเมลล์">
+                    </div>
+                    <div class="form-group" id = "telephone">
                         <label>หมายเลขโทรศัพท์</label>
                         <input type="text" class="form-control" placeholder="0XX-XXX-XXXX">
                     </div>
-                    <div class="form-group col-lg-3" style="padding: 0px;">
+                    <div class="form-group col-lg-3" style="padding: 0px;" id = "number-home">
                         <label>เลขที่</label>
                         <input type="text" class="form-control" placeholder="เลขที่">
                     </div>
-                    <div class="form-group col-lg-9" style="padding-right: 0px;">
+                    <div class="form-group col-lg-9" style="padding-right: 0px;" id = "road">
                         <label>ถนน</label>
                         <input type="text" class="form-control" placeholder="ถนน">
                     </div>
-                    <div class="form-group col-lg-6" style="padding: 0px;">
+                    <div class="form-group col-lg-6" style="padding: 0px;" id = "tb">
                         <label>แขวง/ตำบล</label>
                         <input type="text" class="form-control" placeholder="แขวง/ตำบล">
                     </div>
-                    <div class="form-group col-lg-6" style="padding-right: 0px;">
+                    <div class="form-group col-lg-6" style="padding-right: 0px;" id = "area">
                         <label>เขต/อำเภอ</label>
                         <input type="text" class="form-control" placeholder="เขต/อำเภอ">
                     </div>
                     <div class="form-group" style="padding: 0px;">
                         <label>จังหวัด</label>
-                        <input type="text" class="form-control" placeholder="จังหวัด">
+                        <input type="text" class="form-control" placeholder="จังหวัด" id = "location">
                     </div>
                     <div class="form-group" style="padding-right: 0px;">
                         <label>รหัสไปรณีย์</label>
-                        <input type="text" class="form-control" placeholder="รหัสไปรณีย์">
+                        <input type="text" class="form-control" placeholder="รหัสไปรณีย์" id = "code">
                     </div>
                     <div style="float: right;">
                         <a class="btn btn-default btn-lg" href="login.html" role="button">ยืนยัน</a>
