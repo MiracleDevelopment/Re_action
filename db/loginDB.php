@@ -19,11 +19,13 @@ if($connection)
             
             $userInfo["email"] = $rows["email"];
             $userInfo["id"] = $rows["member_id"];
+            $userInfo["username"] = $rows["username"];
             $userInfo["status"] = true;
             $response[] = $userInfo;
 
             $_SESSION["firstname"] = $rows["firstname"];
             $_SESSION["lastname"] = $rows["lastname"];
+            $_SESSION["username"] = $rows["username"];
         }
     }
     else
