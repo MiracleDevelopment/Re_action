@@ -51,13 +51,38 @@
 
     </script>
 </head>
+<script language="JavaScript" type="text/javascript">
+  var userInfo = function () 
+  {
+    console.log("Call userInfo");
+    var httpUserInfo = new XMLHttpRequest();
+    httpUserInfo.open("GET", "db/getUserInfo.php", true);
+    httpUserInfo.onreadystatechange = function (e) 
+    {
+      if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+        var data = httpUserInfo.response;
+        var info = JSON.parse(data);
+        if (info.firstname != "null")
+        {
+            window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
+        }
+      }
+    }
+    httpUserInfo.send();
+  };
 
+  window.onload = function () {
+    userInfo();
+    console.log("Work.... JS");
+  };
+
+</script>
 <body>
     <header class="header-color">
         <div class="container">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <p style="padding-top:14px; padding-right:7px; font-weight: bold">Dhanaithorn</p>
+                    <p id="nameUserLogin" style="padding-top:14px; padding-right:7px; font-weight: bold"></p>
                 </li>
                 <li><a href="login.html">ออกจากระบบ</a></li>
             </ul>
