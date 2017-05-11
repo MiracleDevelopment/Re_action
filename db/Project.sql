@@ -33,7 +33,8 @@ CREATE TABLE Item_TB (
 );
 
 CREATE TABLE Popular_TB (
-	i_id INT
+	id_type INT,
+	i_id TEXT
 );
 
 CREATE TABLE History_TB(
