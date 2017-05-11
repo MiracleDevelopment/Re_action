@@ -5,6 +5,9 @@ $result =[];
 if(isset($_SESSION["firstname"])){
     $result["firstname"] = $_SESSION["firstname"];
     $result["lastname"] = $_SESSION["lastname"];
+    $result["email"] = $_SESSION["email"];
+    $result["phone"] = $_SESSION["phone"];
+    $result["address"] = $_SESSION["address"];
 }
 else
 {

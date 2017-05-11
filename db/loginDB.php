@@ -26,6 +26,9 @@ if($connection)
             $_SESSION["firstname"] = $rows["firstname"];
             $_SESSION["lastname"] = $rows["lastname"];
             $_SESSION["username"] = $rows["username"];
+            $_SESSION["email"] = $rows["email"];
+            $_SESSION["phone"] = $rows["phone"];
+            $_SESSION["address"] = $rows["address"];
         }
     }
     else

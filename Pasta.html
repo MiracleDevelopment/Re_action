@@ -34,7 +34,7 @@ var userInfo = function ()
 
 var OnBuy = function (id) {
     var http = new XMLHttpRequest();
-    http.open("POST", "db/usercommand.php", true);
+    http.open("POST", "db/add_item.php", true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     http.onreadystatechange = function (e) 
     {

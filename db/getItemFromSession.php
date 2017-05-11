@@ -34,6 +34,7 @@ if($connection)
                 {
                     $totalCount += intval($spliteText[1]);
                     $price += intval($rows["price"]) * intval($spliteText[1]);
+                    $info["id"] = $rows["item_id"];
                     $info["name"] = $rows["item_name"];
                     $info["image"] = $rows["image_url"];
                     $info["count"] = $spliteText[1];
