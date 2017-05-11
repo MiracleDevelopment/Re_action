@@ -29,9 +29,10 @@
      if (https.readyState === XMLHttpRequest.DONE && https.status === 200){
         console.log("ok");
      }
-  var payload1 = "poppular1=" + poppular1;    
+  var payload1 = "poppular=" + poppular +"&num=1";    
   }
-  var poppular2 = function(){
+
+    var poppular2 = function(){
     var poppular2 = document.getElementById("poppular2").value;
     var https = new XMLHttpRequest();
     https.open("POST", "../db/popularitemadmin");
@@ -39,9 +40,10 @@
      if (https.readyState === XMLHttpRequest.DONE && https.status === 200){
         console.log("ok");
      }
-  var payload2 = "poppular2=" + poppular1;    
+  var payload2 = "poppular=" + poppular +"&num=2";    
   }
-    var poppular3 = function(){
+
+  var poppular3 = function(){
     var poppular3 = document.getElementById("poppular3").value;
     var https = new XMLHttpRequest();
     https.open("POST", "../db/popularitemadmin");
@@ -49,7 +51,7 @@
      if (https.readyState === XMLHttpRequest.DONE && https.status === 200){
         console.log("ok");
      }
-  var payload3 = "poppular3=" + poppular3;    
+  var payload3 = "poppular=" + poppular + "&num=3";    
   }
 </script>
   <body>
