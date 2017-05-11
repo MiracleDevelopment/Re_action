@@ -17,7 +17,6 @@ CREATE TABLE Member_TB (
     email VARCHAR(30),
     birthday DATE,
     UNIQUE uq_username (username),
-    UNIQUE uq_password (password),
     UNIQUE uq_email (email),
     PRIMARY KEY(member_id)
 );
@@ -33,6 +32,7 @@ CREATE TABLE Item_TB (
 );
 
 CREATE TABLE Popular_TB (
+	id_type INT,
 	i_id INT
 );
 
@@ -95,6 +95,7 @@ INSERT History_TB(m_id,i_id,count,date_sold) VALUES
 SELECT * FROM Member_TB;
 SELECT * FROM Item_TB;
 SELECT * FROM History_TB;
+SELECT * FROM Popular_TB;
 
 /*DELETE From Member_TB where member_id = 1;*/
 
