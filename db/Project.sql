@@ -33,8 +33,8 @@ CREATE TABLE Item_TB (
 );
 
 CREATE TABLE Popular_TB (
-	id_type INT,
-	i_id TEXT
+	id INT,
+	imageurl TEXT
 );
 
 CREATE TABLE History_TB(
@@ -43,7 +43,7 @@ CREATE TABLE History_TB(
     count INT,
     date_sold DATE
 );
-
+INSERT into popular_tb(id,imageurl) VALUES(1,"image/burger1.png"),(2,"image/burger1.png"),(3,"image/burger1.png");
 
 
 

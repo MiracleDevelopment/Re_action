@@ -21,14 +21,11 @@
       crossorigin="anonymous"></script>
   </head>
   <script>
-
-    
     var uploadPromotion = function () {
-      var pathfile = window.document.getElementById("poppular1").files[0];
-      console.log(poppular1);
+      var pathfile = window.document.getElementById("putImage").files[0];
+      console.log(pathfile);
       var https = new XMLHttpRequest();
       https.open("POST", "../db/popularitemadmin.php");
-      https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       https.onreadystatechange = function (e) {
         if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
           var data = https.response;
@@ -37,12 +34,47 @@
         }
       }
       var formData = new FormData();
+      formData.append("id", "1")
       formData.append("imageurl", pathfile);
-      formData.append("type", "promotion");
       https.send(formData);
     }
 
-   
+
+    var uploadPromotion2 = function () {
+      var pathfile = window.document.getElementById("putImage").files[0];
+      console.log(pathfile);
+      var https = new XMLHttpRequest();
+      https.open("POST", "../db/popularitemadmin.php");
+      https.onreadystatechange = function (e) {
+        if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
+          var data = https.response;
+          var info = JSON.parse(data);
+          console.log(info);
+        }
+      }
+      var formData = new FormData();
+      formData.append("id", "2")
+      formData.append("imageurl", pathfile);
+      https.send(formData);
+    }
+
+    var uploadPromotion3 = function () {
+      var pathfile = window.document.getElementById("putImage").files[0];
+      console.log(pathfile);
+      var https = new XMLHttpRequest();
+      https.open("POST", "../db/popularitemadmin.php");
+      https.onreadystatechange = function (e) {
+        if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
+          var data = https.response;
+          var info = JSON.parse(data);
+          console.log(info);
+        }
+      }
+      var formData = new FormData();
+      formData.append("id", "3")
+      formData.append("imageurl", pathfile);
+      https.send(formData);
+    }
   </script>
 
   <body>
@@ -119,10 +151,10 @@
             </button>
             <ul class="dropdown-menu" style="left:-285px;">
               <li style="padding:3px 20px;">
-                <input type="file" id="poppular1">
+                <input type="file" id="putImage">
               </li>
               <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;"
-                onclick="poppular1()">อัพเดท</button>
+                onclick="uploadPromotion()">อัพเดท</button>
           </div>
         </div>
         <div class="col-lg-4">
@@ -139,7 +171,7 @@
                 <input type="file" id="poppular2">
               </li>
               <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;"
-                onclick="poppular2()">อัพเดท</button>
+                onclick="uploadPromotion2()">อัพเดท</button>
             </ul>
           </div>
         </div>
@@ -157,7 +189,7 @@
                 <input type="file" id="poppular3">
               </li>
               <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;"
-                onclick="poppular3()">อัพเดท</button>
+                onclick="uploadPromotion3()">อัพเดท</button>
             </ul>
           </div>
         </div>

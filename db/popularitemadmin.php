@@ -3,8 +3,9 @@ require("connector.php");
 if($connection){
     $info=[];
     $type=[];
+    $id= $_POST["id"];
     $type = $_POST["type"];
-    $url = $_FILES['imagesurl']['tmp_name'];
+    $url = $_FILES['imageurl']['tmp_name'];
     
     $file_name = $_FILES['imageurl']['name'];
     $path = "image/".$file_name;
@@ -13,13 +14,16 @@ if($connection){
         chmod("../image/".$file_name, 0777);
     }
     
-    $query = "INSERT INTO Popular_TB(id_type,i_id) VALUES ('$type','$path')";
+    $query = "UPDATE popular_tb SET imageurl='$path' WHERE id='$id'";
     $result = mysqli_query($connection,$query);
     if($result){
         $type["type"] = "OK";
         $info[] = $type;
     }else{
-        $type["type"] = $path;
+        $type["type"] = $type;
+        $type["url"]  = $url;
+        $type["file_name"] = $file_name;
+        $type["path"] = $path;
         $info[]= $type;
     }
     echo json_encode($type);
