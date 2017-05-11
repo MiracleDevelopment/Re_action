@@ -82,7 +82,7 @@ INSERT Item_TB (item_id,item_name, price, type,image_url) VALUES
 (1,"Garlic Bread", 100,"pasta", "image/pasta3.png"),
 (2,"Chicken Wings ",200,"pasta","image/pasta3.png"),
 (3,"Mushroom Spaghetti",150,"pasta","image/pasta3.png"),
-(4,"Bacon Topping",180,"pasta","image/pasta3.png"),
+(4,"Bacon Topping",180,"promotion","image/pasta3.png"),
 (5,"Burger",100,"burger","image/pasta3.png"),
 (6,"Burger",200,"burger","image/pasta3.png"),
 (7,"Burger",300,"appetizers","image/pasta3.png"),

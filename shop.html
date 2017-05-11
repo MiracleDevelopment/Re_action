@@ -28,8 +28,67 @@
         httpUserInfo.send();
     };
 
+    getAllItem = function () {
+        var httpUserInfo = new XMLHttpRequest();
+        httpUserInfo.open("GET", "db/getItemFromSession.php", true);
+        httpUserInfo.onreadystatechange = function (e) {
+            if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+                var data = httpUserInfo.response;
+                var info = JSON.parse(data);
+                var item = info.item;
+                console.log(info);
+                var element = "";
+
+                for(var i = 0; i < item.length; ++i)
+                {
+                    element += '<tr>\
+                                    <td>\
+                                        <center>\
+                                            <button type="button" class="btn btn-delete dropdown-toggle" style="z-index: 1;margin-bottom: 90px;margin-left: -70px;margin-right: 60px;"\
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">X</button>\
+                                            <img src="' + item[i].image +'" style="height: 130px; width: 125px;">\
+                                        </center>\
+                                    </td>\
+                                    <td style="text-align: center;">\
+                                        <p>' + item[i].name +'</p>\
+                                    </td>\
+                                    <td>\
+                                        <div style="float: left; padding: 12px 25px; background-color: #CCC; border-radius: 7px 0px 0px 7px">\
+                                            <p style="color: #333; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">' + item[i].count + '</p>\
+                                        </div>\
+                                        <div style="float: left;">\
+                                            <div class="btn-group dropup" style="display: -webkit-box">\
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"\
+                                                    style="border-radius: 0px 7px 0px 0px; padding: 4px 8px;">\
+                                                <span class="caret"></span>\
+                                                <span class="sr-only">Toggle Dropdown</span>\
+                                                </button>\
+                                            </div>\
+                                            <div class="btn-group" style="display: -webkit-box">\
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"\
+                                                    style="border-radius: 0px 0px 7px 0px; padding: 4px 8px;">\
+                                                <span class="caret"></span>\
+                                                <span class="sr-only">Toggle Dropdown</span>\
+                                                </button>\
+                                            </div>\
+                                        </div>\
+                                    </td>\
+                                    <td>\
+                                        <p>฿ ' + item[i].price + '</p>\
+                                    </td>\
+                                </tr>';
+                }
+
+                window.document.getElementById("item-container").innerHTML = element;
+                    
+            }
+        }
+        httpUserInfo.send();
+    }
+
     window.onload = function () {
         userInfo();
+        getAllItem();
         console.log("Work.... JS");
     };
 
@@ -143,113 +202,9 @@
             </div>
             <!--Step 1-->
             <div class="col-lg-12" style="background-color: #FFF; margin-top: 70px; padding-bottom: 20px; border-radius: 4px;">
-                <table class="table-detail">
-                    <tr>
-                        <td>
-                            <center>
-                                <button type="button" class="btn btn-delete dropdown-toggle" style="z-index: 1;margin-bottom: 90px;margin-left: -70px;margin-right: 60px;"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">X</button>
-                                <img src="image/a2.png" style="height: 130px; width: 125px;">
-                            </center>
-                        </td>
-                        <td style="text-align: center;">
-                            <p>ดับเบิล ชีส เบอร์เกอร์ XL</p>
-                        </td>
-                        <td>
-                            <div style="float: left; padding: 12px 25px; background-color: #CCC; border-radius: 7px 0px 0px 7px">
-                                <p style="color: #333; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">1</p>
-                            </div>
-                            <div style="float: left;">
-                                <div class="btn-group dropup" style="display: -webkit-box">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        style="border-radius: 0px 7px 0px 0px; padding: 4px 8px;">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                </div>
-                                <div class="btn-group" style="display: -webkit-box">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        style="border-radius: 0px 0px 7px 0px; padding: 4px 8px;">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p>฿ 129</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <center>
-                                <button type="button" class="btn btn-delete dropdown-toggle" style="z-index: 1;margin-bottom: 90px;margin-left: -70px;margin-right: 60px;"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">X</button>
-                                <img src="image/a2.png" style="height: 130px; width: 125px;">
-                            </center>
-                        </td>
-                        <td style="text-align: center;">
-                            <p>ดับเบิล ชีส เบอร์เกอร์ XL</p>
-                        </td>
-                        <td>
-                            <div style="float: left; padding: 12px 25px; background-color: #CCC; border-radius: 7px 0px 0px 7px">
-                                <p style="color: #333; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">1</p>
-                            </div>
-                            <div style="float: left;">
-                                <div class="btn-group dropup" style="display: -webkit-box">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        style="border-radius: 0px 7px 0px 0px; padding: 4px 8px;">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                                </div>
-                                <div class="btn-group" style="display: -webkit-box">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        style="border-radius: 0px 0px 7px 0px; padding: 4px 8px;">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <p>฿ 129</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <center>
-                <button type="button" class="btn btn-delete dropdown-toggle" style="z-index: 1;margin-bottom: 90px;margin-left: -70px;margin-right: 60px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">X</button>
-                                    <img src="image/a2.png" style="height: 130px; width: 125px;">
-                                    </center>
-                        </td>
-                        <td style="text-align: center;">
-                            <p>ดับเบิล ชีส เบอร์เกอร์ XL</p>
-                        </td>
-                        <td>
-                            <div style="float: left; padding: 12px 25px; background-color: #CCC; border-radius: 7px 0px 0px 7px">
-                                <p style="color: #333; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">1</p>
-                            </div>
-                            <div style="float: left;">
-                                <div class="btn-group dropup" style="display: -webkit-box">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        style="border-radius: 0px 7px 0px 0px; padding: 4px 8px;">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                                </div>
-                                <div class="btn-group" style="display: -webkit-box">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        style="border-radius: 0px 0px 7px 0px; padding: 4px 8px;">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <p>฿ 129</p>
-            </td>
-          </tr>
-        </table>
+                <table class="table-detail" id="item-container">
+                    
+                </table>
         <hr style="border-top: 1px solid #3d3d3d">
         <div class="col-lg-10">
           <h2 style="color: #333">รวมทั้งหมด</h2>

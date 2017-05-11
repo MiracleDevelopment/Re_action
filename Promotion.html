@@ -31,9 +31,84 @@
     httpUserInfo.send();
   };
 
+var OnBuy = function (id) {
+    var http = new XMLHttpRequest();
+    http.open("POST", "db/usercommand.php", true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.onreadystatechange = function (e) 
+    {
+        if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+            var data = http.response;
+            console.log(data);
+            window.location.reload();
+        }
+    }
+
+    var payload = "id=" + id;
+    http.send(payload);
+  }
+
+var getItem = function () {
+    var http = new XMLHttpRequest();
+    http.open("POST", "db/getitem.php", true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.onreadystatechange = function (e) 
+    {
+        if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+            var data = http.response;
+            var info = JSON.parse(data);
+            var element = "";
+
+            for(var i = 0; i < info.length; ++i)
+            {
+                var my_id = info[i].id;
+                element += '<div class="col-lg-6">\
+                                <div class="col-lg-12 food">\
+                                    <div class="col-lg-7">\
+                                        <img src="' + info[i].imageurl + '" style="width: 100%;">\
+                                    </div>\
+                                    <div class="col-lg-5">\
+                                        <h3 style="color: black;">' + info[i].name + '</h3>\
+                                        <p style="color: black;">' + info[i].description + '</p>\
+                                        <div class="clearfix" style="padding-top: 20px;">\
+                                            <h3 class="col-lg-6" style="margin: 0px; color: black;">฿' + info[i].price + '</h3>\
+                                            <button class="btn btn-default btn-lg col-lg-6" role="button" onclick="OnBuy(' + my_id + ')">สั้งซื้อ</button>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                             </div>';
+            }
+
+            window.document.getElementById("item-container").innerHTML = element;
+        }
+    }
+
+    var payload = "type=promotion";
+    http.send(payload);
+}
+
+  var getItemCount = function () {
+    var http = new XMLHttpRequest();
+    http.open("GET", "db/getItemFromSession.php", true);
+    http.onreadystatechange = function (e) 
+    {
+        if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+            var data = http.response;
+            var info = JSON.parse(data);
+            
+            window.document.getElementById("item-price").innerText = "฿ " + info.price;
+            window.document.getElementById("item-count").innerText = info.count + " ชิ้น";
+        }
+    }
+    http.send();
+}
+
+
+
   window.onload = function () {
     userInfo();
-    console.log("Work.... JS");
+    getItemCount();
+    getItem();
   };
 
 </script>
@@ -52,9 +127,9 @@
                 <a href="index.html"><img class="logo" src="image/logo.png"></a>
                 <a href="shop.html">
                     <div class="shopping">
-                        <p style="font-size:40px; color: black; float: left; margin-bottom:0px;">฿ 0</p>
+                        <p style="font-size:40px; color: black; float: left; margin-bottom:0px;" id="item-price">฿ 0</p>
                         <p style="font-size:15px; color: black; font-weight : bold;">สินค้าในตะกร้า</p>
-                        <p style="text-align: center; font-size:15px; color: black; font-weight : bold;">2 ชิ้น</p>
+                        <p style="text-align: center; font-size:15px; color: black; font-weight : bold;" id="item-count">0 ชิ้น</p>
                     </div>
                 </a>
             </div>
@@ -83,52 +158,7 @@
             </nav>
 
             <img src="image/promotion.jpg" style="width: 100%; margin-bottom: 20px;">
-            <div class="col-lg-6">
-                <div class="col-lg-12 food">
-                    <div class="col-lg-7">
-                        <img src="image/promotion1.png" style="width: 100%;">
-                    </div>
-                    <div class="col-lg-5">
-                        <h3 style="color: black;">ชุดประหยัด set1</h3>
-                        <p style="color: black;">เมื่อสั่งผ่านเว็บ www.eat.com สามารถซื้อ สปาเก็ตตี้สไปซี่ซีฟู้ด ขนมปังกระเทียมชีส และมะนาวโซดา ในราคาที่ถูกกว่า</p>
-                        <div class="clearfix" style="padding-top: 20px;">
-                            <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 199</h3>
-                            <a class="btn btn-default btn-lg col-lg-6" href="#" role="button">สั้งซื้อ</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="col-lg-12 food">
-                    <div class="col-lg-7">
-                        <img src="image/promotion2.png" style="width: 100%;">
-                    </div>
-                    <div class="col-lg-5">
-                        <h3 style="color: black;">ชุดประหยัด set2</h3>
-                        <p style="color: black;">
-                            เมื่อสั่งผ่านเว็บ www.eat.com สามารถซื้อ สปาเก็ตตี้ไวท์ครีมซอส ขนมปังกระเทียม และไก่นิวออร์ลีนส์ ในราคาที่ถูกกว่า</p>
-                        <div class="clearfix" style="padding-top: 20px;">
-                            <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 199</h3>
-                            <a class="btn btn-default btn-lg col-lg-6" href="#" role="button">สั้งซื้อ</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="col-lg-12 food">
-                    <div class="col-lg-7">
-                        <img src="image/promotion3.png" style="width: 100%;">
-                    </div>
-                    <div class="col-lg-5">
-                        <h3 style="color: black;">แฟมิลี่อีท คอมโบ</h3>
-                        <p style="color: black;">คุ้มที่สุด กับ 2 พาสต้า 2 เบอร์เกอร์ ขนมปังกระเทียมชีส ชีสซี่ ป๊อป และเครื่องดื่ม </p>
-                        <div class="clearfix" style="padding-top: 20px;">
-                            <h3 class="col-lg-6" style="margin: 0px; color: black;">฿459</h3>
-                            <a class="btn btn-default btn-lg col-lg-6" href="#" role="button">สั้งซื้อ</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="item-container"></div>
 
         </div>
     </main>
