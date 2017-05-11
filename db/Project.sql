@@ -33,7 +33,7 @@ CREATE TABLE Item_TB (
 
 CREATE TABLE Popular_TB (
 	id_type INT,
-	i_id INT
+	i_id TEXT
 );
 
 CREATE TABLE History_TB(
@@ -50,10 +50,6 @@ CREATE TABLE History_TB(
 -- ADD CONSTRIANT
 -- -------------------------------
 
-ALTER TABLE Popular_TB 
-ADD CONSTRAINT FOREIGN KEY pop_id_fk (i_id) REFERENCES Item_TB (item_id)
-ON UPDATE CASCADE 
-ON DELETE CASCADE;
 
 ALTER TABLE History_TB 
 ADD CONSTRAINT FOREIGN KEY his_mid_fk (m_id) REFERENCES Member_TB (member_id)
