@@ -20,40 +20,31 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
       crossorigin="anonymous"></script>
   </head>
-<script>
-  var poppular1 = function(){
-    var poppular1 = document.getElementById("poppular1").value;
-    var https = new XMLHttpRequest();
-    https.open("POST", "../db/popularitemadmin");
-    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-     if (https.readyState === XMLHttpRequest.DONE && https.status === 200){
-        console.log("ok");
-     }
-  var payload1 = "poppular=" + poppular +"&num=1";    
-  }
+  <script>
 
-    var poppular2 = function(){
-    var poppular2 = document.getElementById("poppular2").value;
-    var https = new XMLHttpRequest();
-    https.open("POST", "../db/popularitemadmin");
-    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-     if (https.readyState === XMLHttpRequest.DONE && https.status === 200){
-        console.log("ok");
-     }
-  var payload2 = "poppular=" + poppular +"&num=2";    
-  }
+    
+    var uploadPromotion = function () {
+      var pathfile = window.document.getElementById("poppular1").files[0];
+      console.log(poppular1);
+      var https = new XMLHttpRequest();
+      https.open("POST", "../db/popularitemadmin.php");
+      https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      https.onreadystatechange = function (e) {
+        if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
+          var data = https.response;
+          var info = JSON.parse(data);
+          console.log(info);
+        }
+      }
+      var formData = new FormData();
+      formData.append("imageurl", pathfile);
+      formData.append("type", "promotion");
+      https.send(formData);
+    }
 
-  var poppular3 = function(){
-    var poppular3 = document.getElementById("poppular3").value;
-    var https = new XMLHttpRequest();
-    https.open("POST", "../db/popularitemadmin");
-    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-     if (https.readyState === XMLHttpRequest.DONE && https.status === 200){
-        console.log("ok");
-     }
-  var payload3 = "poppular=" + poppular + "&num=3";    
-  }
-</script>
+   
+  </script>
+
   <body>
     <header class="header-color">
       <div class="container">
@@ -75,7 +66,6 @@
       <div class="container">
         <nav style="margin-bottom: 20px;">
           <ul class="nav nav-justified">
-
             <li>
               <a href="promotionadmin.html" class="manu">โปรโมชั่น</a>
             </li>
@@ -129,9 +119,10 @@
             </button>
             <ul class="dropdown-menu" style="left:-285px;">
               <li style="padding:3px 20px;">
-              <input type="file" id ="popular1">
+                <input type="file" id="poppular1">
               </li>
-              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;" onclick="(popular1)">อัพเดท</button>
+              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;"
+                onclick="poppular1()">อัพเดท</button>
           </div>
         </div>
         <div class="col-lg-4">
@@ -145,9 +136,10 @@
             </button>
             <ul class="dropdown-menu" style="left:-285px;">
               <li style="padding:3px 20px;">
-                <input type="file" id ="popular2">
+                <input type="file" id="poppular2">
               </li>
-              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;" onclick="(popular2)">อัพเดท</button>
+              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;"
+                onclick="poppular2()">อัพเดท</button>
             </ul>
           </div>
         </div>
@@ -162,9 +154,10 @@
             </button>
             <ul class="dropdown-menu" style="left:-285px;">
               <li style="padding:3px 20px;">
-                <input type="file" id ="popular3">
+                <input type="file" id="poppular3">
               </li>
-              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;" onclick="(popular3)">อัพเดท</button>
+              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;"
+                onclick="poppular3()">อัพเดท</button>
             </ul>
           </div>
         </div>
