@@ -20,7 +20,38 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
       crossorigin="anonymous"></script>
   </head>
-
+<script>
+  var poppular1 = function(){
+    var poppular1 = document.getElementById("poppular1").value;
+    var https = new XMLHttpRequest();
+    https.open("POST", "../db/popularitemadmin");
+    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+     if (https.readyState === XMLHttpRequest.DONE && https.status === 200){
+        console.log("ok");
+     }
+  var payload1 = "poppular1=" + poppular1;    
+  }
+  var poppular2 = function(){
+    var poppular2 = document.getElementById("poppular2").value;
+    var https = new XMLHttpRequest();
+    https.open("POST", "../db/popularitemadmin");
+    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+     if (https.readyState === XMLHttpRequest.DONE && https.status === 200){
+        console.log("ok");
+     }
+  var payload2 = "poppular2=" + poppular1;    
+  }
+    var poppular3 = function(){
+    var poppular3 = document.getElementById("poppular3").value;
+    var https = new XMLHttpRequest();
+    https.open("POST", "../db/popularitemadmin");
+    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+     if (https.readyState === XMLHttpRequest.DONE && https.status === 200){
+        console.log("ok");
+     }
+  var payload3 = "poppular3=" + poppular3;    
+  }
+</script>
   <body>
     <header class="header-color">
       <div class="container">
@@ -96,15 +127,15 @@
             </button>
             <ul class="dropdown-menu" style="left:-285px;">
               <li style="padding:3px 20px;">
-                <input type="file">
+                <input type="file" id ="popular1">
               </li>
-              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;">อัพเดท</button>
+              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;" onclick="(popular1)">อัพเดท</button>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="position-fix"></div>
           <img src="../image/pasta7.png" class="position4">
-          <img src="../image/num1.png" class="position3">
+          <img src="../image/num2.png" class="position3">
           <div class="btn-group position2">
             <button type="button" class="btn btn-default2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
@@ -112,16 +143,16 @@
             </button>
             <ul class="dropdown-menu" style="left:-285px;">
               <li style="padding:3px 20px;">
-                <input type="file">
+                <input type="file" id ="popular2">
               </li>
-              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;">อัพเดท</button>
+              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;" onclick="(popular2)">อัพเดท</button>
             </ul>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="position-fix"></div>
           <img src="../image/pasta7.png" class="position4">
-          <img src="../image/num1.png" class="position3">
+          <img src="../image/num3.png" class="position3">
           <div class="btn-group position2">
             <button type="button" class="btn btn-default2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
@@ -129,9 +160,9 @@
             </button>
             <ul class="dropdown-menu" style="left:-285px;">
               <li style="padding:3px 20px;">
-                <input type="file">
+                <input type="file" id ="popular3">
               </li>
-              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;">อัพเดท</button>
+              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;" onclick="(popular3)">อัพเดท</button>
             </ul>
           </div>
         </div>
