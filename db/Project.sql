@@ -14,6 +14,7 @@ CREATE TABLE Member_TB (
     username VARCHAR(30),
     password VARCHAR(30),
     address VARCHAR(100),
+    phone VARCHAR(50),
     email VARCHAR(30),
     birthday DATE,
     UNIQUE uq_username (username),
@@ -43,7 +44,11 @@ CREATE TABLE History_TB(
     count INT,
     date_sold DATE
 );
-INSERT into popular_tb(id,imageurl) VALUES(1,"image/burger1.png"),(2,"image/burger1.png"),(3,"image/burger1.png");
+
+CREATE TABLE Banner_TB(
+	b_id INT,
+    b_imageurl TEXT
+);
 
 
 
@@ -67,14 +72,14 @@ ON DELETE CASCADE;
 -- INSERT
 -- -------------------------------
 
-INSERT Member_TB (member_id,firstname,lastname,username,password,address,email,birthday) VALUES
-(1,"chanon", "temchai", "realtime", "pass1", "61/83", "nonkung8899@hotmail.com", "1996-03-26"),
-(2,"ChatChai","Saiya","ChatChai01","pass2","61/84","nungyoung@gmail.com","1996-03-27"),
-(3,"Warawut","Haiya","Warawut01","pass3","61/85","jung@gmail.com","1996-03-28"),
-(4,"Turk","SaveState","Turk01","pass4","61/86","standart@gmail.com","1996-03-29"), 
-(5,"Thanawat","Warachai","Thanawat01","pass5","61/87","Thanawat@gmail.com","1996-03-30"),
-(6,"FourMod","ModMod","FourMod01","pass6","61/88","FourMode@gmail.com","1996-03-31"),
-(7,"admin","admin","admin","admin","61/88","admin@gmail.com","1996-03-29");
+INSERT Member_TB (member_id,firstname,lastname,username,password,address,email,phone,birthday) VALUES
+(1,"chanon", "temchai", "realtime", "pass1", "61/83", "nonkung8899@hotmail.com","02-900-9000", "1996-03-26"),
+(2,"ChatChai","Saiya","ChatChai01","pass2","61/84","nungyoung@gmail.com","02-900-9000","1996-03-27"),
+(3,"Warawut","Haiya","Warawut01","pass3","61/85","jung@gmail.com","02-900-9000","1996-03-28"),
+(4,"Turk","SaveState","Turk01","pass4","61/86","standart@gmail.com","02-900-9000","1996-03-29"), 
+(5,"Thanawat","Warachai","Thanawat01","pass5","61/87","Thanawat@gmail.com","02-900-9000","1996-03-30"),
+(6,"FourMod","ModMod","FourMod01","pass6","61/88","FourMode@gmail.com","02-900-9000","1996-03-31"),
+(7,"admin","admin","admin","admin","61/88","admin@gmail.com","02-900-9000","1996-03-29");
 
 INSERT Item_TB (item_id,item_name, price, type,image_url) VALUES
 (1,"Garlic Bread", 100,"pasta", "image/pasta3.png"),
@@ -93,9 +98,22 @@ INSERT History_TB(m_id,i_id,count,date_sold) VALUES
 (5,1,2,"2014-05-6");
 
 
+INSERT popular_tb(id,imageurl) VALUES
+(1,"image/burger1.png"),
+(2,"image/burger1.png"),
+(3,"image/burger1.png");
+
+INSERT banner_tb(b_id,b_imageurl) VALUES
+(1,"image/burger2.png"),
+(2,"image/burger2.png"),
+(3,"image/burger2.png");
+
+
+
 SELECT * FROM Member_TB;
 SELECT * FROM Item_TB;
 SELECT * FROM History_TB;
+SELECT * FROM Banner_TB;
 
 /*DELETE From Member_TB where member_id = 1;*/
 
