@@ -7,10 +7,18 @@ if($connection){
     $descriptionfood = $_POST["detail"];
     $pricefood=$_POST["price"];
     $type = $_POST["type"];
-    $url = $_POST["imgurl"];
+    $url = $_FILES['imgurl']['tmp_name'];
+
+    $file_name = $_FILES['imgurl']['name'];
+    $path = "image/".$file_name;
+	if(move_uploaded_file($url,"../image/".$file_name))
+    {
+        chmod("../image/".$file_name, 0777);
+    }
+    
 
     $sqlquery = "INSERT INTO Item_TB(item_name,item_description,price,type,image_url)
-    VALUES ('$namefood','$descriptionfood','$pricefood','$type','$url')";
+    VALUES ('$namefood','$descriptionfood','$pricefood','$type','$path')";
     $result = mysqli_query($connection,$sqlquery);
     if($result){
         $response["status"] = "OK";

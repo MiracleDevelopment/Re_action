@@ -22,16 +22,23 @@ if($connection)
 
     if(mysqli_num_rows($result)>0)
     {
+        $response["item"] = [];
         while($rows = mysqli_fetch_assoc($result))
         {
             for($i = 0; $i < $count; $i++)
             {
+                $info = [];
                 if($array[$i] == "") continue;
                 $spliteText = explode("|",$array[$i]);
                 if(strval($rows["item_id"]) == strval($spliteText[0]))
                 {
                     $totalCount += intval($spliteText[1]);
                     $price += intval($rows["price"]) * intval($spliteText[1]);
+                    $info["name"] = $rows["item_name"];
+                    $info["image"] = $rows["image_url"];
+                    $info["count"] = $spliteText[1];
+                    $info["price"] = intval($rows["price"]) * intval($spliteText[1]);
+                    $response["item"][] = $info;
                 }
 
             }

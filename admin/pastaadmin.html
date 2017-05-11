@@ -7,24 +7,42 @@
 </head>
 
 <script>
+  previewImage = function() {
+    var input = window.document.getElementById("input-img");
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#image-preview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+  }
   upload = function () {
-    var img = window.document.getElementById("input-img").value;
+    var img = window.document.getElementById("input-img").files[0];
     var name = window.document.getElementById("input-name").value;
     var detail = window.document.getElementById("input-detail").value;
     var price = window.document.getElementById("input-price").value;
     var https = new XMLHttpRequest();
+
     https.open("POST", "../db/photodb.php");
-    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     https.onreadystatechange = function (event) {
       if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
         var data = https.response;
-        console.log("ok3");
+        window.location.reload();
       }
     }
-    var payload = "imgurl=" + img + "&name=" + name + "&detail=" + detail + "&price=" + price + "&type=pasta";
-    https.send(payload);
-  }
 
+    var formData = new FormData();
+    formData.append("imgurl", img);
+    formData.append("name", name);
+    formData.append("detail", detail);
+    formData.append("price", price);
+    formData.append("type", "pasta");
+
+    https.send(formData);
+  }
 </script>
 
     <link rel="stylesheet" href="../css/bootstrap.css">
@@ -211,8 +229,8 @@
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content col-lg-12" style="padding: 10px;">
                   <div class="col-lg-6">
-                    <p><img src="" class="form-img"></p>
-                    <input type="file" id="input-img">
+                    <p><img src="" class="form-img" id="image-preview"></p>
+                    <input type="file" id="input-img" onchange="previewImage()">
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
