@@ -1,16 +1,11 @@
 <?php
-require("connector");
 session_start();
-if($connection){
-    $member_id = $_POST[""];
-    $item_id = $_POST[""];
-    $count = $_POST[""];
-    $date_sold = $_POST[""];
-    
-    $_SESSION["member_id"] = $member_id;
-    $_SESSION["item_id"] = $item_id;
-    $_SESSION["count"] = $count;
-    $_SESSION["date_sold"] = $date_sold;
-    
+$msg = "Hello,it,me";
+$id = $_POST["id"];
+$item = $_POST["item"];
+$result = explode(",",$msg);
+$number = count($result);
+for($i = 0 ;$i<$number;$i++){
+    print $result[$i];
 }
 ?>

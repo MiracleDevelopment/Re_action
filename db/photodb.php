@@ -2,6 +2,7 @@
 require("connector.php");
 if($connection){
     $response=[];
+
     $namefood = $_POST["name"];
     $descriptionfood = $_POST["detail"];
     $pricefood=$_POST["price"];
@@ -15,7 +16,7 @@ if($connection){
         $response["status"] = "OK";
         $response["type"] = '$type';
     }else{
-          $response["status"] = "not Ok";
+        $response["status"] = "not Ok";
         $response["type"] = '$type';
     }
     echo json_encode($response);
