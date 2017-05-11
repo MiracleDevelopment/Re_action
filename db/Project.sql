@@ -17,7 +17,6 @@ CREATE TABLE Member_TB (
     email VARCHAR(30),
     birthday DATE,
     UNIQUE uq_username (username),
-    UNIQUE uq_password (password),
     UNIQUE uq_email (email),
     PRIMARY KEY(member_id)
 );
@@ -33,7 +32,8 @@ CREATE TABLE Item_TB (
 );
 
 CREATE TABLE Popular_TB (
-	i_id INT
+	id_type INT,
+	i_id TEXT
 );
 
 CREATE TABLE History_TB(
@@ -50,10 +50,6 @@ CREATE TABLE History_TB(
 -- ADD CONSTRIANT
 -- -------------------------------
 
-ALTER TABLE Popular_TB 
-ADD CONSTRAINT FOREIGN KEY pop_id_fk (i_id) REFERENCES Item_TB (item_id)
-ON UPDATE CASCADE 
-ON DELETE CASCADE;
 
 ALTER TABLE History_TB 
 ADD CONSTRAINT FOREIGN KEY his_mid_fk (m_id) REFERENCES Member_TB (member_id)
@@ -95,6 +91,7 @@ INSERT History_TB(m_id,i_id,count,date_sold) VALUES
 SELECT * FROM Member_TB;
 SELECT * FROM Item_TB;
 SELECT * FROM History_TB;
+SELECT * FROM Popular_TB;
 
 /*DELETE From Member_TB where member_id = 1;*/
 

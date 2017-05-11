@@ -27,6 +27,19 @@
     https.send(payload);
   }
 
+  cancel = function() {
+    var cancel = window.document.getElementById("cancel").value;
+    https.open("POST", "../db/photodb.php");
+    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    https.onreadystatechange = function (event) {
+      if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
+        var data = https.response;
+        window.location.reload();
+      }
+  }
+    https.send(payload);
+  }
+
 </script>
 
     <link rel="stylesheet" href="../css/bootstrap.css">
@@ -78,10 +91,10 @@
           </ul>
         </nav>
         <img src="../image/appetizerscover.jpg" style="width: 100%; margin-bottom: 20px;">
-        <div class="col-lg-6">
+        <div class="col-lg-6" id = "cancel">
           <div class="col-lg-12 food">
             <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">X</button>
+              aria-expanded="false" onclick="cancel()">X</button>
             <div class="col-lg-7">
               <img src="../image/a1.png" style="width: 100%;">
             </div>
@@ -97,7 +110,7 @@
         <div class="col-lg-6">
           <div class="col-lg-12 food">
             <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">X</button>
+              aria-expanded="false" onclick="cancel()">X</button>
             <div class="col-lg-7">
               <img src="../image/a2.png" style="width: 100%;">
             </div>
