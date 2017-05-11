@@ -75,6 +75,25 @@
       formData.append("imageurl", pathfile);
       https.send(formData);
     }
+
+    var uploadBanner = function () {
+      var pathfile = window.document.getElementById("uploadbannerfirst").files[0];
+      var pathfile2 = window.document.getElementById("uploadbannersecond").files[0];
+      var pathfile3 = window.document.getElementById("uploadbannerthird").files[0];
+      var https = new XMLHttpRequest();
+      https.open("POST", "../db/insertbanner.php");
+      https.onreadystatechange = function (event) {
+        if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
+          var data = https.response;
+          console.log(data);
+        }
+      }
+      var formData = new FormData();
+      formData.append("img", pathfile);
+      formData.append("img2", pathfile2);
+      formData.append("img3", pathfile3);
+      https.send(formData);
+    }
   </script>
 
   <body>
@@ -127,15 +146,15 @@
             </button>
             <ul class="dropdown-menu" style="left:-285px;">
               <li style="padding:3px 20px;">
-                <input type="file">
+                <input type="file" id="uploadbannerfirst">
               </li>
               <li style="padding:3px 20px;">
-                <input type="file">
+                <input type="file" id="uploadbannersecond">
               </li>
               <li style="padding:3px 20px;">
-                <input type="file">
+                <input type="file" id="uploadbannerthird">
               </li>
-              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;">อัพเดท</button>
+              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;" onclick="uploadBanner()">อัพเดท</button>
             </ul>
           </div>
         </div>
