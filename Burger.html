@@ -93,7 +93,7 @@ var getItemCount = function () {
         if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
             var data = http.response;
             var info = JSON.parse(data);
-            
+            console.log(data);
             window.document.getElementById("item-price").innerText = "฿ " + info.price;
             window.document.getElementById("item-count").innerText = info.count + " ชิ้น";
         }
