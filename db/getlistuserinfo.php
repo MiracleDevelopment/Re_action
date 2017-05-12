@@ -2,47 +2,34 @@
 require("connector.php");
 if($connection){
     $listUserInfo = [];
-    $listUserMember = [];
-    $listUserItem = [];
-
-    $reponse =[];
-    $sqlAllQuery = "SELECT * FROM History_TB";
+    $response =[];
+    
+    $sqlAllQuery = "SELECT firstname, lastname, email, item_name, count, date_sold FROM History_TB INNER JOIN Member_TB
+    ON History_TB.m_id = Member_TB.member_id
+    INNER JOIN Item_TB
+    ON History_TB.i_id = Item_TB.item_id";
+    
     $result = mysqli_query($connection,$sqlAllQuery);
     if(mysqli_num_rows($result)>0){
         while($rows = mysqli_fetch_assoc($result)){
-            //  $user=$rows["m_id"];
-            //  $itemId = $rows["i_id"];
-            $listUserInfo["memberId"] = $rows["m_id"];
-            $listUserInfo["itemId"]  = $rows["i_id"];
-            $listUserInfo["count"] =$rows["count"];
-            $response[0] = $listUserInfo;
+            $listUserInfo["firstname"] = $rows["firstname"];
+            $listUserInfo["lastname"]  = $rows["lastname"];
+            $listUserInfo["email"] =$rows["email"];
+            $listUserInfo["item_name"] =$rows["item_name"];
+            $listUserInfo["count"] = $rows["count"];
+            $listUserInfo["date_sold"] =$rows["date_sold"];
+            $response[] = $listUserInfo;
         }
-        
-        $sqlquery = "SELECT fistname,lastname,email FROM Member_TB WHERE member_id = '$user'";
-        $resultinner = mysqli_query($connection,$sqlquery);
-        if(mysqli_num_rows($resultinner)>0){
-            while($rowsinner = mysqli_fetch_assoc($resultinner)){
-                $listUserMember["firstname"] = $rows["firstname"];
-                $listUserMember["lastname"] = $rows["lastname"];
-                $listUserMember["email"] = $rows["email"];
-                $response[1] = $listUserMember;
-            }
-        }
-        
-        
-        $sqlqueryThird = "SELECT price,item_name FROM Item_TB WHERE item_name = '$itemId'";
-        $resultinnerconnection = mysqli_query($connection,$sqlqueryThird);
-        if(mysqli_num_rows($connection,$sqlqueryThird)){
-            while($row = mysqli_fetch_assoc($conn)){
-                $listUserItem["price"] = $rows["price"];
-                $listUserItem["name"]= $rows["item_name"];
-                $response[2] = $listUserItem;
-            }
-        }
-        
+    }else{
+        $listUserInfo["status"] = "false";
+        $response[] = $listUserInfo;
     }
-    echo json_encode($reponse);
+    echo json_encode($response);
     
+}else{
+    $listUserInfo["status"] = "false";
+    $response[] = $listUserInfo;
+    echo json_encode($response);
 }
 
 
