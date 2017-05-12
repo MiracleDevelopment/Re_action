@@ -150,9 +150,18 @@
         if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
           var data = httpUserInfo.response;
           var info = JSON.parse(data);
-          if (info.firstname.toLowerCase() != "admin") {
+          if(info.firstname != "null")
+          {
+            if (info.username.toLowerCase() != "admin") 
+            {
+              window.location.href = "../index.html";
+            }
+          }
+          else
+          {
             window.location.href = "../index.html";
           }
+          
         }
       }
       httpUserInfo.send();

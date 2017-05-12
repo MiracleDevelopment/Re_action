@@ -13,9 +13,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
   crossorigin="anonymous"></script>
 <script>
-  var loadingUser = function () {
+  var loadingUser = function (date) {
+    if(!date) date = "all";
+
     var https = new XMLHttpRequest();
-    https.open("GET", "../db/getlistuserinfo.php", true);
+    https.open("GET", "../db/getlistuserinfo.php?date=" + date, true);
     https.onreadystatechange = function (event) {
       if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
         var data = https.response;
@@ -61,15 +63,16 @@
                           </td>\
                           <td style="text-align: center;">\
                               <p>'+ price + '</p>\
-                          </td></tr>'
+                          </td></tr>';
 
         window.document.getElementById("colums-info").innerHTML = element;
       }
     }
     https.send();
   }
+
   window.onload = function () {
-    loadingUser();
+    loadingUser("all");
   }
 
 </script>
