@@ -13,6 +13,22 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
   crossorigin="anonymous"></script>
 <script>
+    var userInfo = function () {
+    console.log("Call userInfo");
+    var httpUserInfo = new XMLHttpRequest();
+    httpUserInfo.open("GET", "../db/getUserInfo.php", true);
+    httpUserInfo.onreadystatechange = function (e) {
+      if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+        var data = httpUserInfo.response;
+        var info = JSON.parse(data);
+        if (info.firstname != "null") {
+          window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
+        }
+      }
+    }
+    httpUserInfo.send();
+  }
+
   var loadingUser = function () {
     var https = new XMLHttpRequest();
     https.open("GET", "../db/getlistuserinfo.php", true);
@@ -70,6 +86,7 @@
   }
   window.onload = function () {
     loadingUser();
+    userInfo();
   }
 
 </script>
@@ -79,7 +96,7 @@
     <div class="container">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <p style="padding-top:14px; padding-right:7px; font-weight: bold">Dhanaithorn</p>
+          <p style="padding-top:14px; padding-right:7px; font-weight: bold" id ="nameUserLogin"></p>
         </li>
         <li><a href="../login.html">ออกจากระบบ</a></li>
       </ul>
@@ -120,8 +137,9 @@
         <h2 style="float: left;">ข้อมูลการสั้งซื้อ</h2>
         <ul class="nav navbar-nav navbar-right" style="margin: auto;">
           <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;">ประจำวัน</a></li>
-          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;">สัปดาห์</a></li>
-          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;">เดือน</a></li>
+          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;">7 วันที่ผ่านมา</a></li>
+          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;">30 วันที่ผ่านมา</a></li>
+          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;">ทั้งหมด</a></li>          
         </ul>
       </div>
       <table class="table-data">
