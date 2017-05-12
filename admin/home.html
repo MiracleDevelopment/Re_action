@@ -142,8 +142,24 @@
       
       httpUserInfo.send();
     };
+
+    AdminCheck = function () {
+      var httpUserInfo = new XMLHttpRequest();
+      httpUserInfo.open("GET", "../db/getUserInfo.php", true);
+      httpUserInfo.onreadystatechange = function (e) {
+        if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+          var data = httpUserInfo.response;
+          var info = JSON.parse(data);
+          if (info.firstname.toLowerCase() != "admin") {
+            window.location.href = "../index.html";
+          }
+        }
+      }
+      httpUserInfo.send();
+    }
     
     window.onload = function () {
+      AdminCheck();
       userInfo();
       getPopular();
       getBanner();

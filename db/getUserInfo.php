@@ -8,6 +8,7 @@ if(isset($_SESSION["firstname"])){
     $result["email"] = $_SESSION["email"];
     $result["phone"] = $_SESSION["phone"];
     $result["address"] = $_SESSION["address"];
+    $result["member_id"] = $_SESSION["member_id"];
 }
 else
 {

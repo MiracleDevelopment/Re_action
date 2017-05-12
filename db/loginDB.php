@@ -23,6 +23,7 @@ if($connection)
             $userInfo["status"] = true;
             $response[] = $userInfo;
 
+            $_SESSION["member_id"] = $rows["member_id"];
             $_SESSION["firstname"] = $rows["firstname"];
             $_SESSION["lastname"] = $rows["lastname"];
             $_SESSION["username"] = $rows["username"];

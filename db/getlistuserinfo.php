@@ -4,7 +4,7 @@ if($connection){
     $listUserInfo = [];
     $response =[];
     
-    $sqlAllQuery = "SELECT firstname, lastname, email, item_name, count, date_sold FROM History_TB INNER JOIN Member_TB
+    $sqlAllQuery = "SELECT firstname, lastname, email, item_name, count, date_sold, price FROM History_TB INNER JOIN Member_TB
     ON History_TB.m_id = Member_TB.member_id
     INNER JOIN Item_TB
     ON History_TB.i_id = Item_TB.item_id";
@@ -16,7 +16,8 @@ if($connection){
             $listUserInfo["lastname"]  = $rows["lastname"];
             $listUserInfo["email"] =$rows["email"];
             $listUserInfo["item_name"] =$rows["item_name"];
-            $listUserInfo["count"] = $rows["count"];
+            $listUserInfo["count"] = intval($rows["count"]);
+            $listUserInfo["price"] = intval($rows["count"]) * intval($rows["price"]);
             $listUserInfo["date_sold"] =$rows["date_sold"];
             $response[] = $listUserInfo;
         }

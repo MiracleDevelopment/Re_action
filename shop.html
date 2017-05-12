@@ -73,6 +73,53 @@
         http.send(payload);
     }
 
+    OnSendSubmit = function (id) {
+
+        var item = window.all_item;
+        var result = "";
+        for(var i = 0; i < item.length; i++)
+        {
+            result += item[i].id + "|" + item[i].count;
+            if(i != item.length - 1)
+            {
+                result += ",";
+            }
+        }
+
+        var http = new XMLHttpRequest();
+        http.open("POST", "db/resultitem.php", true);
+        http.onreadystatechange = function (e) {
+            if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+                var data = http.response;
+                
+                window.location.href = "thank.html";
+            }
+        }
+
+        var formData = new FormData();
+        console.log(result);
+        formData.append("id", id);
+        formData.append("item", result);
+        http.send(formData);
+    }
+
+    OnSubmitItem = function () {
+        var http = new XMLHttpRequest();
+        http.open("GET", "db/getUserInfo.php", true);
+        http.onreadystatechange = function (e) {
+            if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+                var data = http.response;
+                var info = JSON.parse(data);
+                if(info.member_id != "null")
+                {
+                    console.log(info);
+                    OnSendSubmit(info.member_id);
+                }
+            }
+        }
+        http.send();
+    }
+
     getAllItem = function () {
         var httpUserInfo = new XMLHttpRequest();
         httpUserInfo.open("GET", "db/getItemFromSession.php", true);
@@ -84,6 +131,7 @@
                 console.log(info);
                 var element = "";
                 var element3 = "";
+                window.all_item = info.item;
 
                 for(var i = 0; i < item.length; ++i)
                 {
@@ -182,8 +230,9 @@
         userInfo();
         getAllItem();
         getUserInfo();
-        console.log("Work.... JS");
+        
     };
+    var all_item = [];
 
 </script>
 <script>
@@ -463,7 +512,7 @@
                                     aria-expanded="false">ยกเลิก</button>
                             </div>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ยืนยันการจัดส่ง</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="OnSubmitItem()">ยืนยันการจัดส่ง</button>
                             </div>
                         </div>
                     </div>

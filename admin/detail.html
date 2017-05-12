@@ -22,6 +22,8 @@
         var info = JSON.parse(data);
         console.log(info[0]);
         var element = "";
+        var price = 0;
+        var count = 0;
         for (var i = 0; i < info.length; i++) {
           element += '\
                           <tr><td style="width:243px">\
@@ -37,11 +39,30 @@
                               <p>'+ info[i].count + '</p>\
                           </td>\
                           <td style="text-align: center;">\
-                              <p>'+ info[i].count + '</p>\
-                          </td></tr>'
-
+                              <p>'+ info[i].price + '</p>\
+                          </td></tr>';
+          
+          price += info[i].price;
+          count += info[i].count;
 
         }
+
+        element += '\     <tr><td style="width:243px">\
+                            <p></p>\
+                          </td>\
+                          <td style="text-align: center; width:320px">\
+                            <p></p>\
+                          </td>\
+                          <td style="text-align: center; width:249px">\
+                              <p>รวม</p>\
+                          </td>\
+                          <td style="text-align: center;">\
+                              <p>'+ count + '</p>\
+                          </td>\
+                          <td style="text-align: center;">\
+                              <p>'+ price + '</p>\
+                          </td></tr>'
+
         window.document.getElementById("colums-info").innerHTML = element;
       }
     }
