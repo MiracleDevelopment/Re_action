@@ -194,12 +194,12 @@
                     price = info.price;
                 }
                 window.document.getElementById("item-container").innerHTML = element;
-                window.document.getElementById("all-price").innerText = price;
-                window.document.getElementById("step2-price").innerText = price;
+                window.document.getElementById("all-price").innerText = '฿ ' + price;
+                window.document.getElementById("step2-price").innerText = '฿ ' + price;
 
                 window.document.getElementById("item-container3").innerHTML = element3;
-                window.document.getElementById("step3-price").innerHTML = price;
-                window.document.getElementById("step3-total").innerHTML = price + 40;
+                window.document.getElementById("step3-price").innerHTML = '฿ ' + price;
+                window.document.getElementById("step3-total").innerHTML = '฿ ' + (price + 40);
             }
         }
         httpUserInfo.send();
@@ -235,11 +235,26 @@
 
 </script>
 <script>
-    var step1 = function () {
-        var boxStep1 = document.getElementById("step1");
-        boxStep1.style.display = "none";
-        var boxStep2 = document.getElementById("step2");
-        boxStep2.style.display = "block";
+    var step1 = function () 
+    {
+        var httpUserInfo = new XMLHttpRequest();
+        httpUserInfo.open("GET", "db/getItemFromSession.php", true);
+        httpUserInfo.onreadystatechange = function (e) {
+            if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+                var data = httpUserInfo.response;
+                var info = JSON.parse(data);
+                var item = info.item;
+                
+                if(item.length > 0)
+                {
+                    var boxStep1 = document.getElementById("step1");
+                    boxStep1.style.display = "none";
+                    var boxStep2 = document.getElementById("step2");
+                    boxStep2.style.display = "block";
+                }
+            }
+        }
+        httpUserInfo.send(); 
     }
 
 </script>
