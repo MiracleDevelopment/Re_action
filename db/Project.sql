@@ -91,9 +91,11 @@ INSERT Item_TB (item_id,item_name, price, type,image_url) VALUES
 (8,"Burger",400,"drink","image/pasta3.png");
 
 INSERT History_TB(m_id,i_id,count,date_sold) VALUES
-(1,2,2,"2013-04-1"),
+(1,2,2,"2013-04-12"),
 (4,3,1,"2013-04-2"),
 (5,2,2,"2014-05-6"),
+(5,2,2,"2017-05-12"),
+(4,2,2,"2017-05-9"),
 (5,1,2,"2014-05-6");
 
 
