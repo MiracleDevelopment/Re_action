@@ -109,9 +109,34 @@ var deleteItem = function(id){
     http.send(payload);
   }
 
+  AdminCheck = function () {
+    var httpUserInfo = new XMLHttpRequest();
+    httpUserInfo.open("GET", "../db/getUserInfo.php", true);
+    httpUserInfo.onreadystatechange = function (e) {
+      if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+        var data = httpUserInfo.response;
+        var info = JSON.parse(data);
+        if(info.firstname != "null")
+        {
+          if (info.username.toLowerCase() != "admin") 
+          {
+            window.location.href = "../index.html";
+          }
+        }
+        else
+        {
+          window.location.href = "../index.html";
+        }
+      }
+    }
+    httpUserInfo.send();
+  }
+
   window.onload = function () {
+    AdminCheck();
     getItem();
     userInfo();
+    
   };
 
 </script>
@@ -128,7 +153,7 @@ var deleteItem = function(id){
     <div class="container">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <p style="padding-top:14px; padding-right:7px; font-weight: bold">Dhanaithorn</p>
+          <p style="padding-top:14px; padding-right:7px; font-weight: bold" id ="nameUserLogin"></p>
         </li>
         <li><a href="../login.html">ออกจากระบบ</a></li>
       </ul>
