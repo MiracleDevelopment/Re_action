@@ -29,8 +29,7 @@
       https.onreadystatechange = function (e) {
         if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
           var data = https.response;
-          var info = JSON.parse(data);
-          console.log(info);
+          window.location.reload();
         }
       }
       var formData = new FormData();
@@ -41,15 +40,14 @@
 
 
     var uploadPromotion2 = function () {
-      var pathfile = window.document.getElementById("putImage").files[0];
+      var pathfile = window.document.getElementById("putImage2").files[0];
       console.log(pathfile);
       var https = new XMLHttpRequest();
       https.open("POST", "../db/popularitemadmin.php");
       https.onreadystatechange = function (e) {
         if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
           var data = https.response;
-          var info = JSON.parse(data);
-          console.log(info);
+          window.location.reload();
         }
       }
       var formData = new FormData();
@@ -59,15 +57,14 @@
     }
 
     var uploadPromotion3 = function () {
-      var pathfile = window.document.getElementById("putImage").files[0];
+      var pathfile = window.document.getElementById("putImage3").files[0];
       console.log(pathfile);
       var https = new XMLHttpRequest();
       https.open("POST", "../db/popularitemadmin.php");
       https.onreadystatechange = function (e) {
         if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
           var data = https.response;
-          var info = JSON.parse(data);
-          console.log(info);
+          window.location.reload();
         }
       }
       var formData = new FormData();
@@ -85,7 +82,7 @@
       https.onreadystatechange = function (event) {
         if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
           var data = https.response;
-          console.log(data);
+          window.location.reload();
         }
       }
       var formData = new FormData();
@@ -94,6 +91,41 @@
       formData.append("img3", pathfile3);
       https.send(formData);
     }
+    var userInfo = function () {
+      console.log("Call userInfo");
+      var httpUserInfo = new XMLHttpRequest();
+      httpUserInfo.open("GET", "../db/getUserInfo.php", true);
+      httpUserInfo.onreadystatechange = function (e) {
+        if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+          var data = httpUserInfo.response;
+          var info = JSON.parse(data);
+          if (info.firstname != "null") {
+            window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
+          }
+        }
+      }
+      httpUserInfo.send();
+    }
+    var getPopular = function () {
+      var httpUserInfo = new XMLHttpRequest();
+      httpUserInfo.open("GET", "../db/getpopular.php", true);
+      httpUserInfo.onreadystatechange = function (e) {
+        if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+          var data = httpUserInfo.response;
+          console.log(data);
+          var info = JSON.parse(data);
+          $('#item-popular1').attr('src', "../" + info[0].imageurl);
+          $('#item-popular2').attr('src', "../" + info[1].imageurl);
+          $('#item-popular3').attr('src', "../" + info[2].imageurl);
+        }
+      }
+      httpUserInfo.send();
+    };
+    
+    window.onload = function () {
+      userInfo();
+      getPopular();
+    };
   </script>
 
   <body>
@@ -154,14 +186,15 @@
               <li style="padding:3px 20px;">
                 <input type="file" id="uploadbannerthird">
               </li>
-              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;" onclick="uploadBanner()">อัพเดท</button>
+              <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;"
+                onclick="uploadBanner()">อัพเดท</button>
             </ul>
           </div>
         </div>
         <h2 style="margin: 20px; text-align: center;">เมนูยอดนิยม</h2>
         <div class="col-lg-4">
           <div class="position-fix"></div>
-          <img src="../image/pasta7.png" class="position4">
+          <img src="#" class="position4" id="item-popular1"  width="218" height="212">
           <img src="../image/num1.png" class="position3">
           <div class="btn-group position2">
             <button type="button" class="btn btn-default2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -178,7 +211,7 @@
         </div>
         <div class="col-lg-4">
           <div class="position-fix"></div>
-          <img src="../image/pasta7.png" class="position4">
+          <img src="#" class="position4" id="item-popular2" width="218" height="212">
           <img src="../image/num2.png" class="position3">
           <div class="btn-group position2">
             <button type="button" class="btn btn-default2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -187,16 +220,17 @@
             </button>
             <ul class="dropdown-menu" style="left:-285px;">
               <li style="padding:3px 20px;">
-                <input type="file" id="poppular2">
+                <input type="file" id="putImage2">
               </li>
               <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;"
                 onclick="uploadPromotion2()">อัพเดท</button>
             </ul>
           </div>
         </div>
+
         <div class="col-lg-4">
           <div class="position-fix"></div>
-          <img src="../image/pasta7.png" class="position4">
+          <img src="#" class="position4" id="item-popular3" width="218" height="212">
           <img src="../image/num3.png" class="position3">
           <div class="btn-group position2">
             <button type="button" class="btn btn-default2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -205,7 +239,7 @@
             </button>
             <ul class="dropdown-menu" style="left:-285px;">
               <li style="padding:3px 20px;">
-                <input type="file" id="poppular3">
+                <input type="file" id="putImage3">
               </li>
               <button type="button" class="btn btn-primary" style="float:right; margin-top:3px; margin-right:20px; padding: 3px 10px;"
                 onclick="uploadPromotion3()">อัพเดท</button>
@@ -253,5 +287,4 @@
       </div>
     </footer>
   </body>
-
   </html>

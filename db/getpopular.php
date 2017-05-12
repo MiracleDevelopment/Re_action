@@ -3,8 +3,9 @@ require("connector.php");
 if($connection){
     $listInfoFood = [];
     $response = [];
-    $sqlquery = "SELECT * FROM popular_tb";
+    $sqlquery = "SELECT * FROM Popular_TB";
     $result = mysqli_query($connection,$sqlquery);
+
     if(mysqli_num_rows($result)>0){
         while($rows = mysqli_fetch_assoc($result)){
             $listInfoFood["id"] = $rows["id"];

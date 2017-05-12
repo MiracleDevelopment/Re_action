@@ -44,6 +44,61 @@
     https.send(formData);
 
   }
+  var userInfo = function () {
+    console.log("Call userInfo");
+    var httpUserInfo = new XMLHttpRequest();
+    httpUserInfo.open("GET", "../db/getUserInfo.php", true);
+    httpUserInfo.onreadystatechange = function (e) {
+      if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+        var data = httpUserInfo.response;
+        var info = JSON.parse(data);
+        if (info.firstname != "null") {
+          window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
+        }
+      }
+    }
+    httpUserInfo.send();
+  }
+  var getItem = function () {
+    var http = new XMLHttpRequest();
+    http.open("POST", "../db/getitem.php", true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.onreadystatechange = function (e) {
+      if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+        var data = http.response;
+        var info = JSON.parse(data);
+        var element = "";
+
+        for (var i = 0; i < info.length; ++i) {
+          var my_id = info[i].id;
+          element += '<div class="col-lg-6">\
+                              <div class="col-lg-12 food">\
+                                <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"\
+                                  aria-expanded="false">X</button>\
+                                <div class="col-lg-7">\
+                                  <img src="../' + info[i].imageurl + '" width="280" height="280">\
+                                </div>\
+                                <div class="col-lg-5">\
+                                  <h3 style="color: black;">' + info[i].name + '</h3>\
+                                  <p style="color: black;">' + info[i].desciption + '</p>\
+                                  <div class="clearfix" style="padding-top: 20px;">\
+                                    <h3 class="col-lg-6" style="margin: 0px; color: black;">฿'+ info[i].price + '</h3>\
+                                  </div>\
+                                </div>\
+                              </div>\
+                            </div>';
+        }
+
+        window.document.getElementById("item-container").innerHTML = element;
+      }
+    }
+    var payload = "type=drink"
+    http.send(payload);
+  }
+  window.onload = function () {
+    getItem();
+    userInfo();
+  };
 
 </script>
 
@@ -95,70 +150,7 @@
         </ul>
       </nav>
       <img src="../image/drinkcover.jpg" style="width: 100%; margin-bottom: 20px;">
-      <div class="col-lg-6">
-        <div class="col-lg-12 food">
-          <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">X</button>
-          <div class="col-lg-7">
-            <img src="../image/d1.png" style="width: 100%;">
-          </div>
-          <div class="col-lg-5">
-            <h3 style="color: black;">โค้ก/สไปรท์/แฟนต้า</h3>
-            <p style="color: black;">จับคู่มื้ออาหารกับเครื่องดื่มซาบซ่า จะเมนูไหนก็ลงตัว</p>
-            <div class="clearfix" style="padding-top: 20px;">
-              <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 35</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="col-lg-12 food">
-          <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">X</button>
-          <div class="col-lg-7">
-            <img src="../image/d2.png" style="width: 100%;">
-          </div>
-          <div class="col-lg-5">
-            <h3 style="color: black;">ชามะนาวเย็น</h3>
-            <p style="color: black;">มาชาร์ตแบตเติมความสดชื่นด้วยชามะนาวเย็นๆ สักแก้ว กับรสชาติหอมหวาน</p>
-            <div class="clearfix" style="padding-top: 20px;">
-              <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 35</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="col-lg-12 food">
-          <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">X</button>
-          <div class="col-lg-7">
-            <img src="../image/d3.png" style="width: 100%;">
-          </div>
-          <div class="col-lg-5">
-            <h3 style="color: black;">มะนาวโซดา</h3>
-            <p style="color: black;">เติมความสดชื่นด้วยมะนาวโซดา เติมความสดใสให้พร้อมสู้อากาศร้อนได้อีกด้วย</p>
-            <div class="clearfix" style="padding-top: 20px;">
-              <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 65</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="col-lg-12 food">
-          <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">X</button>
-          <div class="col-lg-7">
-            <img src="../image/d6.png" style="width: 100%;">
-          </div>
-          <div class="col-lg-5">
-            <h3 style="color: black;">เป๊ปซี่ 1.45 LT.</h3>
-            <p style="color: black;">เป๊ปซี่ 550 มล.</p>
-            <div class="clearfix" style="padding-top: 20px;">
-              <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 45</h3>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="item-container"></div>
       <div class="col-lg-6">
         <div class="col-lg-12 food" style="padding: 130px 235px; height: 281px;">
           <button type="button" class="btn btn-default btn-lg btn-plus" data-toggle="modal" data-target=".bs-example-modal-lg"><strong>+</strong></button>
@@ -233,5 +225,4 @@
     </div>
   </footer>
 </body>
-
 </html>

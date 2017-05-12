@@ -7,18 +7,19 @@
 </head>
 
 <script>
-  previewImage = function() {
+  previewImage = function () {
     var input = window.document.getElementById("input-img");
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+      var reader = new FileReader();
 
-        reader.onload = function (e) {
-            $('#image-preview').attr('src', e.target.result);
-        }
+      reader.onload = function (e) {
+        $('#image-preview').attr('src', e.target.result);
+      }
 
-        reader.readAsDataURL(input.files[0]);
+      reader.readAsDataURL(input.files[0]);
     }
   }
+
   upload = function () {
     var img = window.document.getElementById("input-img").files[0];
     var name = window.document.getElementById("input-name").value;
@@ -30,6 +31,7 @@
     https.onreadystatechange = function (event) {
       if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
         var data = https.response;
+        console.log(data);
         window.location.reload();
       }
     }
@@ -43,210 +45,144 @@
 
     https.send(formData);
   }
+  var userInfo = function () {
+    console.log("Call userInfo");
+    var httpUserInfo = new XMLHttpRequest();
+    httpUserInfo.open("GET", "../db/getUserInfo.php", true);
+    httpUserInfo.onreadystatechange = function (e) {
+      if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+        var data = httpUserInfo.response;
+        var info = JSON.parse(data);
+        if (info.firstname != "null") {
+          window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
+        }
+      }
+    }
+    httpUserInfo.send();
+  }
+  var getItem = function () {
+    var http = new XMLHttpRequest();
+    http.open("POST", "../db/getitem.php", true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.onreadystatechange = function (e) {
+      if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+        var data = http.response;
+        var info = JSON.parse(data);
+        var element = "";
+
+        for (var i = 0; i < info.length; ++i) {
+          var my_id = info[i].id;
+          element += '<div class="col-lg-6">\
+                              <div class="col-lg-12 food">\
+                                <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"\
+                                  aria-expanded="false">X</button>\
+                                <div class="col-lg-7">\
+                                  <img src="../' + info[i].imageurl + '" width="280" height="280">\
+                                </div>\
+                                <div class="col-lg-5">\
+                                  <h3 style="color: black;">' + info[i].name + '</h3>\
+                                  <p style="color: black;">' + info[i].desciption + '</p>\
+                                  <div class="clearfix" style="padding-top: 20px;">\
+                                    <h3 class="col-lg-6" style="margin: 0px; color: black;">฿'+ info[i].price + '</h3>\
+                                  </div>\
+                                </div>\
+                              </div>\
+                            </div>';
+        }
+
+        window.document.getElementById("item-container").innerHTML = element;
+      }
+    }
+
+    var payload = "type=pasta";
+    http.send(payload);
+  }
+
+
+  window.onload = function () {
+    getItem();
+    userInfo();
+  };
+
 </script>
 
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/mystyle/mystyle16.css">
-    <script src="//code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-      crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../css/bootstrap.css">
+<link rel="stylesheet" href="../css/mystyle/mystyle16.css">
+<script src="//code.jquery.com/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  crossorigin="anonymous"></script>
 
-  <body>
-    <header class="header-color">
+<body>
+  <header class="header-color">
+    <div class="container">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <p style="padding-top:14px; padding-right:7px; font-weight: bold">Dhanaithorn</p>
+        </li>
+        <li><a href="../login.html">ออกจากระบบ</a></li>
+      </ul>
+    </div>
+    <div class="header-color2">
       <div class="container">
-        <ul class="nav navbar-nav navbar-right">
+        <a href="home.html"><img class="logo" src="../image/logo.png"></a>
+        <a href="#" style="float: right; font-size: 50px; color: #a92111; margin: 25px 20px;">ADMIN</a>
+      </div>
+    </div>
+  </header>
+  <main style="background: #333; margin-top: 130px;">
+    <div class="container">
+      <nav style="margin-bottom: 20px;">
+        <ul class="nav nav-justified">
           <li>
-            <p style="padding-top:14px; padding-right:7px; font-weight: bold">Dhanaithorn</p>
+            <a href="promotionadmin.html" class="manu">โปรโมชั่น</a>
           </li>
-          <li><a href="../login.html">ออกจากระบบ</a></li>
+          <li>
+            <a href="pastaadmin.html" class="manu">พาสต้า</a>
+          </li>
+          <li>
+            <a href="burgeradmin.html" class="manu">เบอร์เกอร์</a>
+          </li>
+          <li>
+            <a href="appetizersadmin.html" class="manu">อาหารทานเล่น</a>
+          </li>
+          <li>
+            <a href="drinksadmin.html" class="manu">เครื่องดื่ม</a>
+          </li>
+          <li>
+            <a href="detail.html" class="manu">ข้อมูลการสั้งซื้อ</a>
+          </li>
         </ul>
-      </div>
-      <div class="header-color2">
-        <div class="container">
-          <a href="home.html"><img class="logo" src="../image/logo.png"></a>
-          <a href="#" style="float: right; font-size: 50px; color: #a92111; margin: 25px 20px;">ADMIN</a>
-        </div>
-      </div>
-    </header>
-    <main style="background: #333; margin-top: 130px;">
-      <div class="container">
-        <nav style="margin-bottom: 20px;">
-          <ul class="nav nav-justified">
-            <li>
-              <a href="promotionadmin.html" class="manu">โปรโมชั่น</a>
-            </li>
-            <li>
-              <a href="pastaadmin.html" class="manu">พาสต้า</a>
-            </li>
-            <li>
-              <a href="burgeradmin.html" class="manu">เบอร์เกอร์</a>
-            </li>
-            <li>
-              <a href="appetizersadmin.html" class="manu">อาหารทานเล่น</a>
-            </li>
-            <li>
-              <a href="drinksadmin.html" class="manu">เครื่องดื่ม</a>
-            </li>
-            <li>
-              <a href="detail.html" class="manu">ข้อมูลการสั้งซื้อ</a>
-            </li>
-          </ul>
-        </nav>
-        <img src="../image/pastacover.jpg" style="width: 100%; margin-bottom: 20px;">
-        <div class="col-lg-6">
-          <div class="col-lg-12 food">
-            <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">X</button>
-            <div class="col-lg-7">
-              <img src="../image/pasta3.png" style="width: 100%;">
-            </div>
-            <div class="col-lg-5">
-              <h3 style="color: black;">สปาเก็ตตี้ไวท์ครีมซอส</h3>
-              <p style="color: black;">เนื้อที่ย่างบนเปลวไฟจนหอมกรุ่นถึง 2 ชั้น เติมความอร่อยด้วยเบคอนรมควัน กรุบกรอบด้วยผักสด</p>
-              <div class="clearfix" style="padding-top: 20px;">
-                <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 149</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="col-lg-12 food">
-            <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">X</button>
-            <div class="col-lg-7">
-              <img src="../image/pasta1.png" style="width: 100%;">
-            </div>
-            <div class="col-lg-5">
-              <h3 style="color: black;">สปาเก็ตตี้สไปซี่ซีฟู้ด (ผัดฉ่า)</h3>
-              <p style="color: black;">สปาเก็ตตี้ซีฟู้ดรสชาติแบบไทยๆ จัดจ้านซอสผัดฉ่า เผ็ดถึงใจ</p>
-              <div class="clearfix" style="padding-top: 20px;">
-                <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 139</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="col-lg-12 food">
-            <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">X</button>
-            <div class="col-lg-7">
-              <img src="../image/2.jpg" style="width: 100%;">
-            </div>
-            <div class="col-lg-5">
-              <h3 style="color: black;">สปาเก็ตตี้ผัดฉ่า ไส้กรอกไก่</h3>
-              <p style="color: black;">สปาเก็ตตี้ไส้กรอกไก่ รสชาติแบบไทยๆ จัดจ้านซอสผัดฉ่า เผ็ดถึงใจ</p>
-              <div class="clearfix" style="padding-top: 20px;">
-                <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 129</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="col-lg-12 food">
-            <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">X</button>
-            <div class="col-lg-7">
-              <img src="../image/pasta4.png" style="width: 100%;">
-            </div>
-            <div class="col-lg-5">
-              <h3 style="color: black;">สปาเก็ตตี้เบคอน</h3>
-              <p style="color: black;">สปาเก็ตตี้กับเบคอนรมควันหอมกรุ่นกระเทียมและพริกไทยดำ เผ็ดร้อนเครื่องเทศ อร่อยถึงใจ</p>
-              <div class="clearfix" style="padding-top: 20px;">
-                <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 149</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="col-lg-12 food">
-            <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">X</button>
-            <div class="col-lg-7">
-              <img src="../image/pasta5.png" style="width: 100%;">
-            </div>
-            <div class="col-lg-5">
-              <h3 style="color: black;">สปาเก็ตตี้ ซอสไก่สับ</h3>
-              <p style="color: black;">ปรุงเมนูคลาสสิกให้คุณอร่อยกว่าเดิม ด้วยไก่สับเนื้อนุ่มคัดสรร คลุกเคล้าในซอสมะเขือเทศที่ปรุงรสกับเครื่องเทศ
-                จนหอมกรุ่นเข้มข้น อร่อยตั้งแต่คำแรก</p>
-              <div class="clearfix" style="padding-top: 20px;">
-                <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 99</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="col-lg-12 food">
-            <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">X</button>
-            <div class="col-lg-7">
-              <img src="../image/pasta6.png" style="width: 100%;">
-            </div>
-            <div class="col-lg-5">
-              <h3 style="color: black;">สปาเก็ตตี้ คาโบนาร่าอบ</h3>
-              <p style="color: black;">อร่อยกลมกล่อมสไตล์อิตาเลี่ยน กับไวท์ซอสปรุงรสเนื้อครีมเข้มข้น ผสมผสานจนลงตัวกับเบคอน หอมกรุ่นชั้นดี </p>
-              <div class="clearfix" style="padding-top: 20px;">
-                <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 129</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="col-lg-12 food">
-            <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">X</button>
-            <div class="col-lg-7">
-              <img src="../image/pasta7.png" style="width: 100%;">
-            </div>
-            <div class="col-lg-5">
-              <h3 style="color: black;">สปาเก็ตตี้กุ้งอบชีส</h3>
-              <p style="color: black;">สปาเก็ตตี้กับพาสต้าซอส อบพร้อมกับมอสซาเรลล่าชีสชั้นเยี่ยม</p>
-              <div class="clearfix" style="padding-top: 20px;">
-                <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 149</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="col-lg-12 food">
-            <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">X</button>
-            <div class="col-lg-7">
-              <img src="../image/pasta8.png" style="width: 100%;">
-            </div>
-            <div class="col-lg-5">
-              <h3 style="color: black;">สปาเก็ตตี้อบชีสแฮมเห็ดในไวท์ครีมซอส</h3>
-              <p style="color: black;">สปาเก็ตตี้กับแฮมและเห็ดในซอสครีมรสนุ่ม โรยหน้าด้วยมอสซาเรลล่าชีส อบร้อนๆ พร้อมเสิร์ฟความอร่อย</p>
-              <div class="clearfix" style="padding-top: 20px;">
-                <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 149</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="col-lg-12 food" style="padding: 130px 235px; height: 281px;">
-            <button type="button" class="btn btn-default btn-lg btn-plus" data-toggle="modal" data-target=".bs-example-modal-lg"><strong>+</strong></button>
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content col-lg-12" style="padding: 10px;">
-                  <div class="col-lg-6">
-                    <p><img src="" class="form-img" id="image-preview"></p>
-                    <input type="file" id="input-img" onchange="previewImage()">
+      </nav>
+      <img src="../image/pastacover.jpg" style="width: 100%; margin-bottom: 20px;">
+
+
+      <div id="item-container"></div>
+
+
+      <div class="col-lg-6">
+        <div class="col-lg-12 food" style="padding: 130px 235px; height: 281px;">
+          <button type="button" class="btn btn-default btn-lg btn-plus" data-toggle="modal" data-target=".bs-example-modal-lg"><strong>+</strong></button>
+          <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content col-lg-12" style="padding: 10px;">
+                <div class="col-lg-6">
+                  <p><img src="" class="form-img" id="image-preview"></p>
+                  <input type="file" id="input-img" onchange="previewImage()">
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>ชื่อเมนูอาหาร</label>
+                    <input type="text" class="form-control" placeholder="ชื่อเมนูอาหาร" id="input-name">
                   </div>
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>ชื่อเมนูอาหาร</label>
-                      <input type="text" class="form-control" placeholder="ชื่อเมนูอาหาร" id="input-name">
-                    </div>
-                    <div class="form-group">
-                      <label>รายละเอียดอาหาร</label>
-                      <textarea class="form-control" rows="12" style="margin-bottom: 10px;" placeholder="รายละเอียดอาหาร" id="input-detail"></textarea>
-                    </div>
-                    <div class="form-group col-lg-9">
-                      <input type="text" class="form-control" placeholder="ราคา" id="input-price">
-                    </div>
-                    <div class="col-lg-3">
-                      <button class="btn btn-primary btn-lg" role="button" style="float: right; font-size: 14px;" onclick="upload()">อัพโหลด</button>
-                    </div>
+                  <div class="form-group">
+                    <label>รายละเอียดอาหาร</label>
+                    <textarea class="form-control" rows="12" style="margin-bottom: 10px;" placeholder="รายละเอียดอาหาร" id="input-detail"></textarea>
+                  </div>
+                  <div class="form-group col-lg-9">
+                    <input type="text" class="form-control" placeholder="ราคา" id="input-price">
+                  </div>
+                  <div class="col-lg-3">
+                    <button class="btn btn-primary btn-lg" role="button" style="float: right; font-size: 14px;" onclick="upload()">อัพโหลด</button>
                   </div>
                 </div>
               </div>
@@ -254,46 +190,46 @@
           </div>
         </div>
       </div>
-    </main>
-    <footer>
-      <div class="container" style="padding-bottom: 40px;">
-        <hr>
-        <div class="col-lg-3">
-          <h4>เกี่ยวกับเรา</h4>
-          <p class="font-size-footer">
-            Eat Restaurant
-            <br>มีเมนู ดังนี้
-          </p>
-          <a href="#" class="font-size-footer">พาสต้า</a>
-          <br>
-          <a href="#" class="font-size-footer">เบอร์เกอร์</a>
-          <br>
-          <a href="#" class="font-size-footer">อาหารทานเล่น</a>
-          <br>
-          <a href="#" class="font-size-footer">เครื่องดื่ม</a>
-          <br>
-        </div>
-        <div class="col-lg-3" style="padding-right: 130px;">
-          <h4>สถานที่ตั้ง</h4>
-          <a href="https://www.google.co.th/maps/place/King+Mongkut's+University+of+Technology+Thonburi+(Bangkhuntian)/@13.5772745,100.4414213,15z/data=!4m5!3m4!1s0x0:0x25141f65cef4c68b!8m2!3d13.5772745!4d100.4414213"
-            target="_blank" class="font-size-footer">เทียนทะและ 25, แขวง ท่าข้าม เขต บางขุนเทียน กรุงเทพมหานคร 10150</a>
-        </div>
-        <div class="col-lg-3">
-          <h4>เวลาทำการ</h4>
-          <p class="font-size-footer">เปิดทุกวัน</p>
-          <p class="font-size-footer">เวลา 10:00 - 22:00 น.</p>
-        </div>
-        <div class="col-lg-3">
-          <h4>ติดต่อเรา</h4>
-          <p class="font-size-footer">เดลิเวอรี่ 4949</p>
-        </div>
+    </div>
+  </main>
+  <footer>
+    <div class="container" style="padding-bottom: 40px;">
+      <hr>
+      <div class="col-lg-3">
+        <h4>เกี่ยวกับเรา</h4>
+        <p class="font-size-footer">
+          Eat Restaurant
+          <br>มีเมนู ดังนี้
+        </p>
+        <a href="#" class="font-size-footer">พาสต้า</a>
+        <br>
+        <a href="#" class="font-size-footer">เบอร์เกอร์</a>
+        <br>
+        <a href="#" class="font-size-footer">อาหารทานเล่น</a>
+        <br>
+        <a href="#" class="font-size-footer">เครื่องดื่ม</a>
+        <br>
       </div>
-      <div style="background-color: #a92111">
-        <center>
-          <a href="#"><img src="../image/eat.png" style="margin: 15px;"></a>
-        </center>
+      <div class="col-lg-3" style="padding-right: 130px;">
+        <h4>สถานที่ตั้ง</h4>
+        <a href="https://www.google.co.th/maps/place/King+Mongkut's+University+of+Technology+Thonburi+(Bangkhuntian)/@13.5772745,100.4414213,15z/data=!4m5!3m4!1s0x0:0x25141f65cef4c68b!8m2!3d13.5772745!4d100.4414213"
+          target="_blank" class="font-size-footer">เทียนทะและ 25, แขวง ท่าข้าม เขต บางขุนเทียน กรุงเทพมหานคร 10150</a>
       </div>
-    </footer>
-  </body>
-
+      <div class="col-lg-3">
+        <h4>เวลาทำการ</h4>
+        <p class="font-size-footer">เปิดทุกวัน</p>
+        <p class="font-size-footer">เวลา 10:00 - 22:00 น.</p>
+      </div>
+      <div class="col-lg-3">
+        <h4>ติดต่อเรา</h4>
+        <p class="font-size-footer">เดลิเวอรี่ 4949</p>
+      </div>
+    </div>
+    <div style="background-color: #a92111">
+      <center>
+        <a href="#"><img src="../image/eat.png" style="margin: 15px;"></a>
+      </center>
+    </div>
+  </footer>
+</body>
   </html>

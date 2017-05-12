@@ -7,16 +7,16 @@
 </head>
 
 <script>
-    previewImage = function() {
+  previewImage = function () {
     var input = window.document.getElementById("input-img");
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+      var reader = new FileReader();
 
-        reader.onload = function (e) {
-            $('#image-preview').attr('src', e.target.result);
-        }
+      reader.onload = function (e) {
+        $('#image-preview').attr('src', e.target.result);
+      }
 
-        reader.readAsDataURL(input.files[0]);
+      reader.readAsDataURL(input.files[0]);
     }
   }
   upload = function () {
@@ -44,28 +44,63 @@
     https.send(formData);
   }
 
-  var userInfo = function () 
-  {
+  var userInfo = function () {
     console.log("Call userInfo");
     var httpUserInfo = new XMLHttpRequest();
     httpUserInfo.open("GET", "../db/getUserInfo.php", true);
-    httpUserInfo.onreadystatechange = function (e) 
-    {
+    httpUserInfo.onreadystatechange = function (e) {
       if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
         var data = httpUserInfo.response;
         var info = JSON.parse(data);
-        if (info.firstname != "null")
-        {
-            window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
+        if (info.firstname != "null") {
+          window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
         }
       }
     }
     httpUserInfo.send();
   }
-      window.onload = function () {
-      userInfo();
-      };
 
+  var getItem = function () {
+    var http = new XMLHttpRequest();
+    http.open("POST", "../db/getitem.php", true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.onreadystatechange = function (e) {
+      if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+        var data = http.response;
+        var info = JSON.parse(data);
+        var element = "";
+
+        for (var i = 0; i < info.length; ++i) {
+          var my_id = info[i].id;
+          element += '<div class="col-lg-6">\
+                              <div class="col-lg-12 food">\
+                                <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"\
+                                  aria-expanded="false">X</button>\
+                                <div class="col-lg-7">\
+                                  <img src="../' + info[i].imageurl + '" width="280" height="280">\
+                                </div>\
+                                <div class="col-lg-5">\
+                                  <h3 style="color: black;">' + info[i].name + '</h3>\
+                                  <p style="color: black;">' + info[i].desciption + '</p>\
+                                  <div class="clearfix" style="padding-top: 20px;">\
+                                    <h3 class="col-lg-6" style="margin: 0px; color: black;">฿'+ info[i].price + '</h3>\
+                                  </div>\
+                                </div>\
+                              </div>\
+                            </div>';
+        }
+
+        window.document.getElementById("item-container").innerHTML = element;
+      }
+    }
+    var payload = "type=promotion"
+    http.send(payload);
+  }
+
+  window.onload = function () {
+    userInfo();
+    getItem();
+  };
 
 </script>
 
@@ -118,64 +153,16 @@
         </ul>
       </nav>
       <img src="../image/promotion.jpg" style="width: 100%; margin-bottom: 20px;">
+      <div id="item-container"></div>
       <div class="col-lg-6">
-        <div class="col-lg-12 food">
-          <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">X</button>
-          <div class="col-lg-7">
-            <img src="../image/promotion1.png" style="width: 100%;">
-          </div>
-          <div class="col-lg-5">
-            <h3 style="color: black;">ชุดประหยัด set1</h3>
-            <p style="color: black;">เมื่อสั่งผ่านเว็บ www.eat.com สามารถซื้อ สปาเก็ตตี้สไปซี่ซีฟู้ด ขนมปังกระเทียมชีส และมะนาวโซดา ในราคาที่ถูกกว่า</p>
-            <div class="clearfix" style="padding-top: 20px;">
-              <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 199</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="col-lg-12 food">
-          <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">X</button>
-          <div class="col-lg-7">
-            <img src="../image/promotion2.png" style="width: 100%;">
-          </div>
-          <div class="col-lg-5">
-            <h3 style="color: black;">ชุดประหยัด set2</h3>
-            <p style="color: black;">
-              เมื่อสั่งผ่านเว็บ www.eat.com สามารถซื้อ สปาเก็ตตี้ไวท์ครีมซอส ขนมปังกระเทียม และไก่นิวออร์ลีนส์ ในราคาที่ถูกกว่า</p>
-            <div class="clearfix" style="padding-top: 20px;">
-              <h3 class="col-lg-6" style="margin: 0px; color: black;">฿ 199</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="col-lg-12 food">
-          <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">X</button>
-          <div class="col-lg-7">
-            <img src="../image/promotion3.png" style="width: 100%;">
-          </div>
-          <div class="col-lg-5">
-            <h3 style="color: black;">แฟมิลี่อีท คอมโบ</h3>
-            <p style="color: black;">คุ้มที่สุด กับ 2 พาสต้า 2 เบอร์เกอร์ ขนมปังกระเทียมชีส ชีสซี่ ป๊อป และเครื่องดื่ม </p>
-            <div class="clearfix" style="padding-top: 20px;">
-              <h3 class="col-lg-6" style="margin: 0px; color: black;">฿459</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-          <div class="col-lg-12 food" style="padding: 130px 235px; height: 281px;">
-            <button type="button" class="btn btn-default btn-lg btn-plus" data-toggle="modal" data-target=".bs-example-modal-lg"><strong>+</strong></button>
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content col-lg-12" style="padding: 10px;">
-                  <div class="col-lg-6">
-                    <p><img src="" class="form-img" id="image-preview"></p>
-                    <input type="file" id="input-img" onchange="previewImage()">
+        <div class="col-lg-12 food" style="padding: 130px 235px; height: 281px;">
+          <button type="button" class="btn btn-default btn-lg btn-plus" data-toggle="modal" data-target=".bs-example-modal-lg"><strong>+</strong></button>
+          <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content col-lg-12" style="padding: 10px;">
+                <div class="col-lg-6">
+                  <p><img src="" class="form-img" id="image-preview"></p>
+                  <input type="file" id="input-img" onchange="previewImage()">
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
@@ -240,5 +227,4 @@
     </div>
   </footer>
 </body>
-
 </html>

@@ -13,8 +13,8 @@ if($connection){
     {
         chmod("../image/".$file_name, 0777);
     }
-    
-    $query = "UPDATE popular_tb SET imageurl='$path' WHERE id='$id'";
+    echo "$id";
+    $query = "UPDATE Popular_TB SET imageurl='$path' WHERE id='$id'";
     $result = mysqli_query($connection,$query);
     if($result){
         $type["type"] = "OK";

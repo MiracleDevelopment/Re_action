@@ -1,5 +1,7 @@
 <?php
 require("connector.php");
+ini_set('display_errors',1);
+error_reporting(E_ALL);
 if($connection){
     $response=[];
 
@@ -11,11 +13,11 @@ if($connection){
 
     $file_name = $_FILES['imgurl']['name'];
     $path = "image/".$file_name;
+    chmod($url, 0777);
 	if(move_uploaded_file($url,"../image/".$file_name))
     {
         chmod("../image/".$file_name, 0777);
     }
-    
 
     $sqlquery = "INSERT INTO Item_TB(item_name,item_description,price,type,image_url)
     VALUES ('$namefood','$descriptionfood','$pricefood','$type','$path')";
