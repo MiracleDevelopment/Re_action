@@ -101,8 +101,10 @@ INSERT Item_TB (item_id,item_name, price, type,image_url) VALUES
 INSERT History_TB(m_id,i_id,count,date_sold) VALUES
 (1,2,2,"2013-04-1"),
 (4,3,1,"2013-04-2"),
-(5,2,2,"2014-05-6"),
-(5,1,2,"2014-05-6");
+(4,2,1,"2013-04-2"),
+(5,3,2,"2014-05-6"),
+(5,4,3,"2017-05-9"),
+(4,5,4,"2017-05-12");
 
 
 INSERT Popular_TB(id,imageurl) VALUES

@@ -13,7 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
   crossorigin="anonymous"></script>
 <script>
-    var userInfo = function () {
+  var userInfo = function () {
     console.log("Call userInfo");
     var httpUserInfo = new XMLHttpRequest();
     httpUserInfo.open("GET", "../db/getUserInfo.php", true);
@@ -29,63 +29,217 @@
     httpUserInfo.send();
   }
 
-  var loadingUser = function () {
+  var loadingUser = function (date) {
+
     var https = new XMLHttpRequest();
-    https.open("GET", "../db/getlistuserinfo.php", true);
+    https.open("GET", "../db/getlistuserinfo.php?date=" + date, true);
     https.onreadystatechange = function (event) {
-      if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
+      if (https.readyState === XMLHttpRequest.DONE && https.status === 200) 
+      {
         var data = https.response;
         var info = JSON.parse(data);
-        console.log(info[0]);
         var element = "";
-        var price = 0;
-        var count = 0;
-        for (var i = 0; i < info.length; i++) {
-          element += '\
-                          <tr><td style="width:243px">\
-                            <p>'+ info[i].firstname + " " + info[i].lastname + '</p>\
+        var cur_price = 0;
+        var cur_count = 0;
+        var mixed = {};
+        for(var a = info.length - 1; a >= 0; a--)
+        {
+          var date = info[a].date_sold;
+          var name = info[a].firstname+"_"+info[a].lastname;
+          if (typeof mixed[date] == 'undefined')                 mixed[date] = {};
+          if (typeof mixed[date][name] == 'undefined')           mixed[date][name] = {};
+          if (typeof mixed[date][name]["item"] == 'undefined')   mixed[date][name]["item"] = [];
+          if (typeof mixed[date][name]["count"] == 'undefined')  mixed[date][name]["count"] = [];
+          if (typeof mixed[date][name]["price"] == 'undefined')  mixed[date][name]["price"] = [];
+
+          mixed[date][name]["item"].push(info[a].item_name);
+          mixed[date][name]["count"].push(info[a].count);
+          mixed[date][name]["price"].push(info[a].price);
+        }
+
+        for (var key in mixed) 
+        {
+          for (var keyname in mixed[key]) 
+          {
+            var items = mixed[key][keyname]["item"];
+            var count = mixed[key][keyname]["count"];
+            var price = mixed[key][keyname]["price"];
+            var el_item = "";
+            var el_count = "";
+            var el_price = "";
+            for(var c = 0; c < items.length; c++)
+            {
+              el_item += '<p>'+ items[c] + '</p>';
+              el_count += '<p>'+ count[c] + '</p>';
+              el_price += '<p>'+ price[c] + '</p>';
+            }
+            element += '\ <tr><td style="width:243px">\
+                            <p>'+ keyname.replace("_"," ") + '</p>\
                           </td>\
                           <td style="text-align: center; width:320px">\
-                            <p>'+ info[i].email + '</p>\
+                            <p>'+ el_item + '</p>\
                           </td>\
                           <td style="text-align: center; width:249px">\
-                              <p>'+ info[i].item_name + '</p>\
+                              <p>'+ el_count + '</p>\
                           </td>\
                           <td style="text-align: center;">\
-                              <p>'+ info[i].count + '</p>\
+                              <p>'+ el_price + '</p>\
                           </td>\
                           <td style="text-align: center;">\
-                              <p>'+ info[i].price + '</p>\
+                              <p>'+ key + '</p>\
                           </td></tr>';
-          
-          price += info[i].price;
-          count += info[i].count;
+          }
+        }
 
+        var top3 = {};
+
+        for (var i = 0; i < info.length; i++) 
+        {
+          cur_price += parseInt(info[i].price);
+          cur_count += parseInt(info[i].count);
+
+          if(typeof top3[info[i].item_name] == 'undefined') top3[info[i].item_name] = 0;
+          top3[info[i].item_name] += info[i].count;
+        }
+        
+        var top_item = [];
+        var total_t1 = [];
+
+        for(var i = 0; i < 3; i++)
+        {
+          var top_name = "";
+          var top_count = 0;
+          var total = {};
+          var isSet = false;
+          for (var key in top3) 
+          {
+            var have = false;
+            for(var a = 0; a < top_item.length; a++)
+            {
+              if(top_item[a].name == key)
+              {
+                have = true;
+                break;
+              }
+            }
+
+            if(have) continue;
+
+            if(top3[key] > top_count)
+            {
+              total.count = top3[key];
+              total.name = key;
+              isSet = true;
+            }
+          }
+
+          if(isSet)
+          {
+            top_item.push(total);
+          }
         }
 
         element += '\     <tr><td style="width:243px">\
                             <p></p>\
                           </td>\
                           <td style="text-align: center; width:320px">\
-                            <p></p>\
+                            <p>รวม</p>\
                           </td>\
                           <td style="text-align: center; width:249px">\
-                              <p>รวม</p>\
+                              <p>'+ cur_count + '</p>\
                           </td>\
                           <td style="text-align: center;">\
-                              <p>'+ count + '</p>\
+                              <p>'+ cur_price + '</p>\
                           </td>\
                           <td style="text-align: center;">\
-                              <p>'+ price + '</p>\
-                          </td></tr>'
+                              <p></p>\
+                          </td></tr>';
 
         window.document.getElementById("colums-info").innerHTML = element;
+
+
+        //Find Top 3
+        element = "";
+        element += '<tr>\
+                    <th style="text-align: center;">\
+                      <p>ลำดับ</p>\
+                    </th>\
+                    <th style="text-align: center;">\
+                      <p>ชื่ออาหาร</p>\
+                    </th>\
+                    <th style="text-align: center;">\
+                      <p>รูปอาหาร</p>\
+                    </th>\
+                    <th style="text-align: center;">\
+                      <p>ราคา</p>\
+                    </th>\
+                  </tr>';
+        for(var i = 0; i < top_item.length; i++)
+        {
+          var name = "";
+          var url = "";
+          var price = 0;
+          for(var a = 0; a < info.length; a++)
+          {
+            if(info[a].item_name == top_item[i].name)
+            {
+              name = info[a].item_name;
+              url = info[a].image_url;
+              price = info[a].real_price;
+              break;
+            }
+          }
+          
+          element += '<tr>\
+                        <td style="text-align: center;">\
+                          <p>' + (i + 1) + '</p>\
+                        </td>\
+                        <td style="text-align: center;">\
+                          <p>'+name+'</p>\
+                        </td>\
+                        <td>\
+                          <center><img src="../'+url+'" style="height: 150px; width: 145px;"></center>\
+                        </td>\
+                        <td style="text-align: center;">\
+                          <p>฿ '+price+'</p>\
+                        </td>\
+                      </tr>';
+        }
+        window.document.getElementById("item-popular").innerHTML = element;        
+
       }
     }
+
     https.send();
   }
+
+  AdminCheck = function () {
+    var httpUserInfo = new XMLHttpRequest();
+    httpUserInfo.open("GET", "../db/getUserInfo.php", true);
+    httpUserInfo.onreadystatechange = function (e) {
+      if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+        var data = httpUserInfo.response;
+        var info = JSON.parse(data);
+        if(info.firstname != "null")
+        {
+          if (info.username.toLowerCase() != "admin") 
+          {
+            window.location.href = "../index.html";
+          }
+        }
+        else
+        {
+          window.location.href = "../index.html";
+        }
+        
+      }
+    }
+    httpUserInfo.send();
+  }
+
   window.onload = function () {
-    loadingUser();
+    AdminCheck();
+    loadingUser("all");
     userInfo();
   }
 
@@ -96,7 +250,7 @@
     <div class="container">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <p style="padding-top:14px; padding-right:7px; font-weight: bold" id ="nameUserLogin"></p>
+          <p style="padding-top:14px; padding-right:7px; font-weight: bold" id="nameUserLogin"></p>
         </li>
         <li><a href="../login.html">ออกจากระบบ</a></li>
       </ul>
@@ -136,10 +290,10 @@
       <div style="margin-top: 40px;" class="clearfix">
         <h2 style="float: left;">ข้อมูลการสั้งซื้อ</h2>
         <ul class="nav navbar-nav navbar-right" style="margin: auto;">
-          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;">ประจำวัน</a></li>
-          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;">7 วันที่ผ่านมา</a></li>
-          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;">30 วันที่ผ่านมา</a></li>
-          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;">ทั้งหมด</a></li>          
+          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;" onclick="loadingUser('day')">ประจำวัน</a></li>
+          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;" onclick="loadingUser('week')">7 วันที่ผ่านมา</a></li>
+          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;" onclick="loadingUser('month')">30 วันที่ผ่านมา</a></li>
+          <li><a href="#" class="manu" style="font-size: 16px; padding: 10px;" onclick="loadingUser('all')">ทั้งหมด</a></li>
         </ul>
       </div>
       <table class="table-data">
@@ -149,19 +303,19 @@
             </p>
           </th>
           <th style="text-align: center;">
-            <p>อีเมลล์หรือชื่อบัญชี
+            <p>รายการอาหาร
             </p>
-          </th>
-          <th style="text-align: center;">
-            <p>รายการอาหาร</p>
           </th>
           <th style="text-align: center;">
             <p>จำนวน</p>
           </th>
           <th style="text-align: center;">
-            <p>ยอดชำระ
-            </p>
+            <p>ยอดชำระ</p>
           </th>
+          <th style="text-align: center;">
+            <p>วันที่สั่งซื้อ</p>
+          </th>
+          
         </tr>
         <table id="colums-info" class="table-data" style="margin-top:0; border-radius: 0px">
         </table>
@@ -171,63 +325,7 @@
       <div style="margin-top: 40px;" class="clearfix">
         <h2 style="float: left;">เมนูยอดนิยม</h2>
       </div>
-      <table class="table-detail">
-        <tr>
-          <th style="text-align: center;">
-            <p>ลำดับ</p>
-          </th>
-          <th style="text-align: center;">
-            <p>ชื่ออาหาร</p>
-          </th>
-          <th style="text-align: center;">
-            <p>รูปอาหาร</p>
-          </th>
-          <th style="text-align: center;">
-            <p>ราคา</p>
-          </th>
-        </tr>
-        <tr>
-          <td style="text-align: center;">
-            <p>1</p>
-          </td>
-          <td style="text-align: center;">
-            <p>ดับเบิล ชีส เบอร์เกอร์ XL</p>
-          </td>
-          <td>
-            <center><img src="../image/2.jpg" style="height: 150px; width: 145px;"></center>
-          </td>
-          <td style="text-align: center;">
-            <p>฿ 129</p>
-          </td>
-        </tr>
-        <tr>
-          <td style="text-align: center;">
-            <p>2</p>
-          </td>
-          <td style="text-align: center;">
-            <p>ดับเบิล ชีส เบอร์เกอร์ XL</p>
-          </td>
-          <td>
-            <center><img src="../image/2.jpg" style="height: 150px; width: 145px;"></center>
-          </td>
-          <td style="text-align: center;">
-            <p>฿ 129</p>
-          </td>
-        </tr>
-        <tr>
-          <td style="text-align: center;">
-            <p>3</p>
-          </td>
-          <td style="text-align: center;">
-            <p>ดับเบิล ชีส เบอร์เกอร์ XL</p>
-          </td>
-          <td>
-            <center><img src="../image/2.jpg" style="height: 150px; width: 145px;"></center>
-          </td>
-          <td style="text-align: center;">
-            <p>฿ 129</p>
-          </td>
-        </tr>
+      <table class="table-detail" id="item-popular">
       </table>
   </main>
   <footer>
@@ -273,5 +371,4 @@
 
 </html>
 </body>
-
 </html>
