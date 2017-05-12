@@ -5,7 +5,7 @@ if($connection){
     
     $info = [];
     $response=[];
-    $switch = "month";//$_POST["date"];
+    $switch = $_GET["date"];
     $time = date("Y-m-d");
     $Day = intval(date("d"));
     $sql = "SELECT * FROM History_TB";
