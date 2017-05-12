@@ -23,7 +23,7 @@
   <script>
     var uploadPromotion = function () {
       var pathfile = window.document.getElementById("putImage").files[0];
-      console.log(pathfile);
+
       var https = new XMLHttpRequest();
       https.open("POST", "../db/popularitemadmin.php");
       https.onreadystatechange = function (e) {
@@ -32,6 +32,7 @@
           window.location.reload();
         }
       }
+      
       var formData = new FormData();
       formData.append("id", "1")
       formData.append("imageurl", pathfile);
@@ -150,7 +151,7 @@
         if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
           var data = httpUserInfo.response;
           var info = JSON.parse(data);
-          if(info.firstname != "null")
+          if(info.username != "null")
           {
             if (info.username.toLowerCase() != "admin") 
             {

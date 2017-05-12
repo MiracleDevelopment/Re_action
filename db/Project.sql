@@ -17,7 +17,6 @@ CREATE TABLE Member_TB (
     phone VARCHAR(50),
     email VARCHAR(30),
     UNIQUE uq_username (username),
-    UNIQUE uq_password (password),
     UNIQUE uq_email (email),
     PRIMARY KEY(member_id)
 );
@@ -80,7 +79,7 @@ INSERT Member_TB (member_id,firstname,lastname,username,password,address,email,p
 (6,"FourMod","ModMod","FourMod01","pass6","61/88","FourMode@gmail.com","02-900-9000"),
 (7,"admin","admin","admin","admin","61/88","admin@gmail.com","02-900-9000");
 
-INSERT Item_TB (item_id,item_name, price, type,image_url) VALUES
+INSERT Item_TB (item_id,item_name, item_description, price, type,image_url) VALUES
 (1,"Garlic Bread", 100,"pasta", "image/pasta3.png"),
 (2,"Chicken Wings ",200,"pasta","image/pasta3.png"),
 (3,"Mushroom Spaghetti",150,"pasta","image/pasta3.png"),

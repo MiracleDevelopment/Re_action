@@ -9,14 +9,12 @@ if($connection)
     $email = $_POST["email"];
     $password = $_POST["password"];
     
-    $stateLogin  = "SELECT * From Member_TB  WHERE email='$email' AND password='$password'";
+    $stateLogin  = "SELECT * From Member_TB  WHERE (username='$email' OR email='$email') AND password='$password'";
     $result = mysqli_query($connection,$stateLogin);
     if(mysqli_num_rows($result) > 0)
     {
         while($rows = mysqli_fetch_assoc($result))
         {
-            $emailLogin = $rows["email"];
-            
             $userInfo["email"] = $rows["email"];
             $userInfo["id"] = $rows["member_id"];
             $userInfo["username"] = $rows["username"];

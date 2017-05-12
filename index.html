@@ -23,10 +23,14 @@
       if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
         var data = httpUserInfo.response;
         var info = JSON.parse(data);
-        if (info.firstname != "null")
-        {
-            window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
-        }
+        if (info.firstname != "null") {
+              window.document.getElementById("login-text").innerText = "ออกจากระบบ";
+              window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
+          }
+          else
+          {
+              window.document.getElementById("login-text").innerText = "เข้าสู่ระบบ";
+          }
       }
     }
     httpUserInfo.send();
@@ -40,9 +44,7 @@ var getBanner = function()
     {
       if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
         var data = httpUserInfo.response;
-        console.log(data);
         var info = JSON.parse(data);
-        console.log(data);
         $('#item-banner1').attr('src', info[0].imageurl);
         $('#item-banner2').attr('src', info[1].imageurl);
         $('#item-banner3').attr('src', info[2].imageurl);
@@ -59,9 +61,7 @@ var getBanner = function()
     {
       if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
         var data = httpUserInfo.response;
-        console.log(data);
         var info = JSON.parse(data);
-        console.log(data);
         $('#item-popular1').attr('src', info[0].imageurl);
         $('#item-popular2').attr('src', info[1].imageurl);
         $('#item-popular3').attr('src', info[2].imageurl);
@@ -85,6 +85,26 @@ var getBanner = function()
         http.send();
     }  
 
+    var checkUser = function () {
+        var httpUserInfo = new XMLHttpRequest();
+        httpUserInfo.open("GET", "db/getUserInfo.php", true);
+        httpUserInfo.onreadystatechange = function (e) {
+            if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+                var data = httpUserInfo.response;
+                var info = JSON.parse(data);
+                
+                if (info.username != "null") {
+                    window.location.href = "shop.html";
+                }
+                else
+                {
+                    window.location.href = "login.html";
+                }
+            }
+        }
+        httpUserInfo.send();
+    }
+
   window.onload = function () {
     userInfo();
     getPopular();
@@ -100,13 +120,13 @@ var getBanner = function()
         <li >          
           <p id="nameUserLogin" style="padding-top:14px; padding-right:7px; font-weight: bold"></p>
         </li>
-        <li><a href="login.html">ออกจากระบบ</a></li>
+        <li><a href="login.html" id="login-text"></a></li>
       </ul>
     </div>
     <div class="header-color2">
       <div class="container">
         <a href="index.html"><img class="logo" src="image/logo.png"></a>
-        <a href="shop.html">
+        <a href="#" onclick="checkUser()">
           <div class="shopping">
             <p style="font-size:40px; color: black; float: left; margin-bottom:0px;" id="item-price">฿ 0</p>
             <p style="font-size:15px; color: black; font-weight : bold;">สินค้าในตะกร้า</p>

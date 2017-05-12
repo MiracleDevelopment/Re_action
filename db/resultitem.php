@@ -10,7 +10,8 @@ if($connection){
     $number = count($items);
     $sqlquery = "INSERT INTO History_TB (m_id, i_id,count,date_sold) VALUES ";
 
-    for ($dolla = 0;$dolla<$number;$dolla++){
+    for ($dolla = 0;$dolla<$number;$dolla++)
+    {
         if($items[$dolla] == "" ) continue;
 
         $arr = explode("|",$items[$dolla]); 

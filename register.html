@@ -12,6 +12,10 @@
         crossorigin="anonymous"></script>
 </head>
 <script>
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
   register = function () {
     var username = window.document.getElementById("username").value;
     var password = window.document.getElementById("password").value;
@@ -24,22 +28,46 @@
     var tb = window.document.getElementById("tb").value;
     var area = window.document.getElementById("area").value;
     var location = window.document.getElementById("location").value;    
-    var code = window.document.getElementById("code").value;    
-    var https = new XMLHttpRequest();
-    https.open("POST", "db/register.php");
-    https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    https.onreadystatechange = function (event) {
-      if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
-        var data = https.response;
-     //   var info  = JSON.parse(data)[1];
-        console.log(data);
-       // window.location.href = "login.html";
-      }
+    var code = window.document.getElementById("code").value;  
+
+    if(username == "" || password == "" || firstname == "" || lastname == "" || email == "" || telephone == "" || numberhome == "" || road == "" || tb == "" || area == "" || location == "" || code == "")
+    {
+        alert("กรุณากรอกข้อมูลให้ครบ");
     }
-    var payload = "username=" + username + "&password=" + password + "&firstname=" + firstname + "&lastname=" + lastname +
-                  "&email=" + email + "&telephone=" + telephone + "&number-home=" + numberhome + "&road=" + road+
-                  "&tb=" + tb + "&area=" + area + "&location=" + location + "&code=" + code;
-    https.send(payload);
+    else if(!validateEmail(email))
+    {
+        alert("รูปแบบ Email ไม่ถูกต้อง");
+    }  
+    else
+    {
+        var https = new XMLHttpRequest();
+        https.open("POST", "db/register.php");
+        https.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        https.onreadystatechange = function (event) {
+            if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
+                var data = https.response;
+            //   var info  = JSON.parse(data)[1];
+                if(data == "email")
+                {
+                    alert("Email ไม่สามารถใช้งานได้");
+                }
+                else if(data == "username")
+                {
+                    alert("Username ไม่สามารถใช้งานได้");
+                }
+                else if(data == "OK")
+                {
+                    window.location.href = "login.html";
+                }
+                console.log(data);
+            }
+        }
+        var payload = "username=" + username + "&password=" + password + "&firstname=" + firstname + "&lastname=" + lastname +
+                    "&email=" + email + "&telephone=" + telephone + "&number-home=" + numberhome + "&road=" + road+
+                    "&tb=" + tb + "&area=" + area + "&location=" + location + "&code=" + code;
+        https.send(payload);
+    }
+    
   }
 
 </script>

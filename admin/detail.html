@@ -124,11 +124,11 @@
             }
 
             if(have) continue;
-
             if(top3[key] > top_count)
             {
               total.count = top3[key];
               total.name = key;
+              top_count = top3[key];
               isSet = true;
             }
           }
@@ -138,6 +138,8 @@
             top_item.push(total);
           }
         }
+
+        console.log(top_item);
 
         element += '\     <tr><td style="width:243px">\
                             <p></p>\
