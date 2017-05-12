@@ -1,6 +1,7 @@
 <?php
 require("connector.php");
 if($connection){
+    $num=[];
     $response=[];
     $info=[];
     $img = $_FILES["img"]['name'];
@@ -14,23 +15,27 @@ if($connection){
     $path = "image/".$img;
     $path2 = "image/".$img2;
     $path3 = "image/".$img3;
+
     
     if(move_uploaded_file($url,"../image/".$img))
     {
         chmod("../image/".$img, 0777);
+        $num["img"]=$path;
     }
     
     if(move_uploaded_file($url2,"../image/".$img2))
     {
         chmod("../image/".$img2, 0777);
+        $num["img2"]=$path2;
     }
     
     if(move_uploaded_file($url3,"../image/".$img3))
     {
         chmod("../image/".$img3, 0777);
+        $num["img2"]=$path3;
     }
-    
-    for($i = 1;$i<=3;$i++){
+    $result = count($num);
+    for($i = 1;$i<=$result;$i++){
         if($i==1){
             $name = $path;
         }else if ($i==2){
