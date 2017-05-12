@@ -16,7 +16,6 @@ CREATE TABLE Member_TB (
     address VARCHAR(100),
     phone VARCHAR(50),
     email VARCHAR(30),
-    birthday DATE,
     UNIQUE uq_username (username),
     UNIQUE uq_password (password),
     UNIQUE uq_email (email),
@@ -72,14 +71,14 @@ ON DELETE CASCADE;
 -- INSERT
 -- -------------------------------
 
-INSERT Member_TB (member_id,firstname,lastname,username,password,address,email,phone,birthday) VALUES
-(1,"chanon", "temchai", "realtime", "pass1", "61/83", "nonkung8899@hotmail.com","02-900-9000", "1996-03-26"),
-(2,"ChatChai","Saiya","ChatChai01","pass2","61/84","nungyoung@gmail.com","02-900-9000","1996-03-27"),
-(3,"Warawut","Haiya","Warawut01","pass3","61/85","jung@gmail.com","02-900-9000","1996-03-28"),
-(4,"Turk","SaveState","Turk01","pass4","61/86","standart@gmail.com","02-900-9000","1996-03-29"), 
-(5,"Thanawat","Warachai","Thanawat01","pass5","61/87","Thanawat@gmail.com","02-900-9000","1996-03-30"),
-(6,"FourMod","ModMod","FourMod01","pass6","61/88","FourMode@gmail.com","02-900-9000","1996-03-31"),
-(7,"admin","admin","admin","admin","61/88","admin@gmail.com","02-900-9000","1996-03-29");
+INSERT Member_TB (member_id,firstname,lastname,username,password,address,email,phone) VALUES
+(1,"chanon", "temchai", "realtime", "pass1", "61/83", "nonkung8899@hotmail.com","02-900-9000"),
+(2,"ChatChai","Saiya","ChatChai01","pass2","61/84","nungyoung@gmail.com","02-900-9000"),
+(3,"Warawut","Haiya","Warawut01","pass3","61/85","jung@gmail.com","02-900-9000"),
+(4,"Turk","SaveState","Turk01","pass4","61/86","standart@gmail.com","02-900-9000"), 
+(5,"Thanawat","Warachai","Thanawat01","pass5","61/87","Thanawat@gmail.com","02-900-9000"),
+(6,"FourMod","ModMod","FourMod01","pass6","61/88","FourMode@gmail.com","02-900-9000"),
+(7,"admin","admin","admin","admin","61/88","admin@gmail.com","02-900-9000");
 
 INSERT Item_TB (item_id,item_name, price, type,image_url) VALUES
 (1,"Garlic Bread", 100,"pasta", "image/pasta3.png"),

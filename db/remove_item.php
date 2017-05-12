@@ -25,7 +25,7 @@ for($i = 0 ;$i<$number;$i++){
             $result[$i] = "";
         }
         break;
-    }
+}
 }
 
 $msg = implode(",", $result);
