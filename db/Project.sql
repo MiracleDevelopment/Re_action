@@ -17,7 +17,6 @@ CREATE TABLE Member_TB (
     phone VARCHAR(50),
     email VARCHAR(30),
     UNIQUE uq_username (username),
-    UNIQUE uq_password (password),
     UNIQUE uq_email (email),
     PRIMARY KEY(member_id)
 );
