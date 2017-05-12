@@ -98,15 +98,15 @@ INSERT History_TB(m_id,i_id,count,date_sold) VALUES
 (5,1,2,"2014-05-6");
 
 
-INSERT popular_tb(id,imageurl) VALUES
+INSERT Popular_TB(id,imageurl) VALUES
 (1,"image/burger1.png"),
 (2,"image/burger1.png"),
 (3,"image/burger1.png");
 
-INSERT banner_tb(b_id,b_imageurl) VALUES
-(1,"image/burger2.png"),
-(2,"image/burger2.png"),
-(3,"image/burger2.png");
+INSERT Banner_TB(b_id,b_imageurl) VALUES
+(1,"image/promotion.jpg"),
+(2,"image/promotion2.jpg"),
+(3,"image/1.jpg");
 
 
 
@@ -114,6 +114,7 @@ SELECT * FROM Member_TB;
 SELECT * FROM Item_TB;
 SELECT * FROM History_TB;
 SELECT * FROM Banner_TB;
+SELECT * FROM Popular_TB;
 
 /*DELETE From Member_TB where member_id = 1;*/
 

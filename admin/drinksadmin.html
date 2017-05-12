@@ -59,6 +59,21 @@
     }
     httpUserInfo.send();
   }
+
+  var deleteItem = function(id){
+    var http = new XMLHttpRequest();
+    http.open("POST", "../db/delete_item_admin.php", true);
+    http.onreadystatechange = function (e) {
+      if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+        var data = http.response;
+        window.location.reload();
+      }
+    }
+
+    var formData = new FormData();
+    formData.append("id", id);
+    http.send(formData);
+  }
   var getItem = function () {
     var http = new XMLHttpRequest();
     http.open("POST", "../db/getitem.php", true);
@@ -74,7 +89,7 @@
           element += '<div class="col-lg-6">\
                               <div class="col-lg-12 food">\
                                 <button type="button" class="btn btn-delete dropdown-toggle position" style=" z-index: 1;" data-toggle="dropdown" aria-haspopup="true"\
-                                  aria-expanded="false">X</button>\
+                                  aria-expanded="false" onclick="deleteItem(' + info[i].id + ')">X</button>\
                                 <div class="col-lg-7">\
                                   <img src="../' + info[i].imageurl + '" width="280" height="280">\
                                 </div>\

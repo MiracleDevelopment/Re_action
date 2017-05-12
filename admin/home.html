@@ -82,6 +82,7 @@
       https.onreadystatechange = function (event) {
         if (https.readyState === XMLHttpRequest.DONE && https.status === 200) {
           var data = https.response;
+          console.log(data);
           window.location.reload();
         }
       }
@@ -121,10 +122,31 @@
       }
       httpUserInfo.send();
     };
+
+    var getBanner = function()
+    {
+      var httpUserInfo = new XMLHttpRequest();
+      httpUserInfo.open("GET", "../db/getbanner.php", true);
+      httpUserInfo.onreadystatechange = function (e) 
+      {
+        if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+          var data = httpUserInfo.response;
+          console.log(data);
+          var info = JSON.parse(data);
+          console.log(data);
+          $('#item-banner1').attr('src', "../" + info[0].imageurl);
+          $('#item-banner2').attr('src', "../" + info[1].imageurl);
+          $('#item-banner3').attr('src', "../" + info[2].imageurl);
+        }
+      }
+      
+      httpUserInfo.send();
+    };
     
     window.onload = function () {
       userInfo();
       getPopular();
+      getBanner();
     };
   </script>
 
@@ -170,7 +192,46 @@
           </ul>
         </nav>
         <div style="position: relative;">
-          <img src="../image/promotion.jpg" style="width: 100%; margin-bottom: 20px;">
+          <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="margin-bottom: 20px;">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+              <div class="item active" style="width:1140px; height:342px">
+                <img src="#" style="max-width: 100%; max-height: 100%;" width="1140" id="item-banner1">
+                <div class="carousel-caption">
+                  ...
+                </div>
+              </div>
+              <div class="item" style="width:1140px; height:342px">
+                <img src="#" style="max-width: 100%; max-height: 100%;" width="1140" id="item-banner2">
+                <div class="carousel-caption">
+                  ...
+                </div>
+              </div>
+              <div class="item" style="width:1140px; height:342px">
+                <img src="#" style="max-width: 100%; max-height: 100%;" width="1140" id="item-banner3">
+                <div class="carousel-caption">
+                  ...
+                </div>
+              </div>
+            </div>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
           <div class="btn-group position">
             <button type="button" class="btn btn-default2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
