@@ -11,6 +11,27 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
 </head>
+<script language="JavaScript" type="text/javascript">
+    var userInfo = function () {
+        console.log("Call userInfo");
+        var httpUserInfo = new XMLHttpRequest();
+        httpUserInfo.open("GET", "db/getUserInfo.php", true);
+        httpUserInfo.onreadystatechange = function (e) {
+            if (httpUserInfo.readyState === XMLHttpRequest.DONE && httpUserInfo.status === 200) {
+                var data = httpUserInfo.response;
+                var info = JSON.parse(data);
+                if (info.firstname != "null") {
+                    window.document.getElementById("nameUserLogin").innerText = info.firstname + " " + info.lastname;
+                }
+            }
+        }
+        httpUserInfo.send();
+    };
+
+    window.onload = function () {
+        userInfo();
+    };
+</script>
 <body>
   <header class="header-color">
     <div class="container">
