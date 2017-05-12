@@ -8,7 +8,7 @@ if($connection){
     if(mysqli_num_rows($result)>0){
         while($rows = mysqli_fetch_assoc($result)){
             $info["id"] = $rows["b_id"];
-            $info["image"] = $rows["b_image"];
+            $info["imageurl"] = $rows["b_image"];
             $response[]=$info;
         }
     }
